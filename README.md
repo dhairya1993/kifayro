@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kifayro — Indian Affiliate Deals & Smart Shopping Discovery Platform
 
-## Getting Started
+> **Discover Deals. Compare Prices. Save Smarter.**
 
-First, run the development server:
+Kifayro is a production-grade, high-performance Indian affiliate deals aggregator and price comparison platform built with **Next.js (App Router)**, **TypeScript**, and **Tailwind CSS**.
+
+---
+
+## 🌟 Key Features
+
+1. **Zero Fabricated Discounts**: Every offer displays a verified timestamp, matched against true street prices rather than artificial festive MRP markups.
+2. **SKU-Level Multi-Store Comparison**: Compares identical models across Amazon India, Flipkart, Croma, and Reliance Digital.
+3. **Verified Indian Coupons**: Promo codes tested against merchant checkout workflows with clear minimum spend and expiry rules.
+4. **Transparent Affiliate Architecture**: Secure `/go/[id]` redirection with strict server-side validation against open redirect vulnerabilities and clear statutory disclosures.
+5. **SEO & Discoverability**: Automated dynamic `sitemap.xml`, `robots.txt`, canonical URLs, and schema.org JSON-LD structured data for WebSite, Products, and Articles.
+6. **₹0-Cost Deployment**: Built to run entirely on Vercel's Hobby free tier with zero external paid database or API dependencies.
+
+---
+
+## 🚀 Quick Start (Local Development)
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Run local development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🗺️ Project Architecture & Routes
 
-## Learn More
+```text
+src/
+├── app/
+│   ├── layout.tsx                     # Root layout with Header, Footer, and Announcement Bar
+│   ├── page.tsx                       # Complete 15-section Homepage
+│   ├── deals/                         # All deals with client filtering & sorting
+│   ├── categories/                    # Category directory
+│   ├── categories/[slug]/             # Category-specific deals & products
+│   ├── coupons/                       # Working coupon codes & promo vouchers
+│   ├── search/                        # Multi-facet live search interface
+│   ├── product/[slug]/                # Product specs & multi-store comparison
+│   ├── deal/[slug]/                   # Verified deal breakdown & discount analysis
+│   ├── stores/                        # Supported retailer directory & network statuses
+│   ├── stores/[slug]/                 # Individual store profile & offers
+│   ├── compare/                       # Price comparison engine
+│   ├── blog/                          # Shopping guides & consumer advice
+│   ├── blog/[slug]/                   # Long-form research guides
+│   ├── about/                         # Brand identity & mission
+│   ├── how-it-works/                  # How verification & affiliate model works
+│   ├── affiliate-disclosure/          # Full statutory affiliate disclosure
+│   ├── editorial-policy/              # Independent product evaluation policy
+│   ├── privacy-policy/                # DPDP Act compliant privacy policy
+│   ├── terms/                         # Terms of use
+│   ├── disclaimer/                    # Price & availability disclaimer
+│   ├── contact/                       # Functional contact & deal correction form
+│   ├── go/[id]/                       # Secure outbound affiliate bridge
+│   ├── not-found.tsx                  # Accessible 404 handler
+│   ├── robots.ts                      # Dynamic robots.txt
+│   └── sitemap.ts                     # Dynamic XML sitemap
+├── components/
+│   ├── layout/                        # Header, Footer, AnnouncementBar
+│   ├── ui/                            # Logo, DemoBanner, Breadcrumbs, AffiliateNotice
+│   ├── deals/                         # DealCard
+│   ├── products/                      # ProductCard
+│   ├── coupons/                       # CouponCard
+│   ├── compare/                       # PriceComparisonTable
+│   ├── search/                        # SearchBar
+│   └── newsletter/                    # NewsletterSection
+├── data/                              # Strongly typed initial datasets
+├── lib/                               # Data adapters & formatting utilities
+└── types/                             # TypeScript data models
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ☁️ Deployment Guide (Vercel)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Step 1: Push to GitHub
+```bash
+git add .
+git commit -m "feat: complete Kifayro Indian affiliate deals platform"
+git branch -M main
+git remote add origin https://github.com/<your-username>/kifayro.git
+git push -u origin main
+```
 
-## Deploy on Vercel
+### Step 2: Deploy on Vercel
+1. Go to [vercel.com](https://vercel.com) and log in with GitHub.
+2. Click **Add New Project** and import the `kifayro` repository.
+3. Keep Framework Preset as **Next.js**.
+4. Set Environment Variable:
+   - `NEXT_PUBLIC_SITE_URL`: `https://<your-project>.vercel.app`
+5. Click **Deploy**.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌐 Connecting Custom Domain (kifayro.com) Later
+
+When ready to connect `kifayro.com`:
+1. In the Vercel Dashboard, navigate to **Project Settings > Domains**.
+2. Add `kifayro.com` and `www.kifayro.com`.
+3. In your DNS registrar (e.g., Cloudflare, GoDaddy, Namecheap), add the DNS records specified by Vercel:
+   - **A Record**: `@` -> `76.76.21.21`
+   - **CNAME**: `www` -> `cname.vercel-dns.com`
+4. Update `NEXT_PUBLIC_SITE_URL` in Vercel Environment Variables to `https://kifayro.com`.
