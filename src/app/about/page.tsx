@@ -62,7 +62,7 @@ export default function AboutPage() {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 shrink-0 mt-0.5" />
-                <span><strong>Tested Coupons:</strong> Every voucher code is manually tested against real merchant checkout pages.</span>
+                <span><strong>Transparent Terms:</strong> We feature explicit voucher qualifications, minimum cart rules, and stated expiration dates.</span>
               </li>
             </ul>
           </div>
@@ -71,9 +71,9 @@ export default function AboutPage() {
             <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">
               <Users className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-slate-900">How We Stay Free</h3>
+            <h3 className="text-base font-bold text-slate-900">Commercial Transparency</h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Kifayro is 100% free for consumers. We operate on a transparent affiliate commerce model: when you find a useful deal and purchase through our links, we may receive a small referral commission from the retailer at zero additional cost to you.
+              Kifayro is 100% free for consumers. We are preparing to apply for official affiliate programs: once authorized, qualifying purchases made through eligible links will support platform development at zero additional cost to you. Current preview links route directly to merchant storefronts without affiliate tracking.
             </p>
             <div className="pt-1">
               <Link

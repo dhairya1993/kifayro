@@ -36,14 +36,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === '' ? 1.0 : route === '/deals' || route === '/compare' ? 0.9 : 0.7,
   }));
 
-  const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
+  // Exclude demo-only products and demo deals from public sitemap indexation
+  const liveProducts = products.filter((p) => !p.isDemoData);
+  const liveDeals = deals.filter((d) => !d.isDemoData);
+
+  const productRoutes: MetadataRoute.Sitemap = liveProducts.map((p) => ({
     url: `${siteUrl}/product/${p.slug}`,
     lastModified: new Date(p.lastVerifiedAt),
     changeFrequency: 'daily',
     priority: 0.8,
   }));
 
-  const dealRoutes: MetadataRoute.Sitemap = deals.map((d) => ({
+  const dealRoutes: MetadataRoute.Sitemap = liveDeals.map((d) => ({
     url: `${siteUrl}/deal/${d.slug}`,
     lastModified: new Date(d.lastVerifiedAt),
     changeFrequency: 'daily',

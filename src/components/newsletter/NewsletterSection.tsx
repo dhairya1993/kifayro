@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Mail, AlertCircle, ShieldCheck } from 'lucide-react';
 
 export function NewsletterSection() {
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'notice' | 'error'>('idle');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,17 +13,8 @@ export function NewsletterSection() {
       setStatus('error');
       return;
     }
-    // Zero-cost client-side subscription simulation (stores in localStorage)
-    try {
-      const existing = JSON.parse(localStorage.getItem('kifayro_subscribers') || '[]');
-      if (!existing.includes(email)) {
-        existing.push(email);
-        localStorage.setItem('kifayro_subscribers', JSON.stringify(existing));
-      }
-    } catch {
-      // ignore storage error
-    }
-    setStatus('success');
+    // Do not simulate false delivery or subscription
+    setStatus('notice');
   };
 
   return (
@@ -35,24 +26,34 @@ export function NewsletterSection() {
       <div className="relative max-w-2xl mx-auto text-center space-y-4">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
           <Mail className="w-3.5 h-3.5" />
-          The Kifayro Smart Buyer Bulletin
+          The Kifayro Bulletin (Preview)
         </div>
 
         <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-          Save Smarter with Verified Weekend Drops
+          Smart Shopping & Transparent Deal Guides
         </h2>
 
         <p className="text-sm text-slate-300 leading-relaxed max-w-xl mx-auto">
-          Get our curated, spam-free weekly digest of genuine price drops, vetted coupon codes, and consumer buying guides directly in your inbox. No fake sale hype, guaranteed.
+          Our upcoming weekly digest of genuine price drops, buying guides, and vetted consumer tips.
         </p>
 
-        {status === 'success' ? (
-          <div className="bg-teal-500/20 border border-teal-500/40 rounded-2xl p-6 text-center space-y-2 animate-in fade-in duration-200">
-            <CheckCircle2 className="w-8 h-8 text-teal-400 mx-auto" />
-            <h3 className="font-bold text-base text-white">You’re on the VIP list!</h3>
-            <p className="text-xs text-teal-200 max-w-sm mx-auto">
-              Thank you for subscribing. We’ll notify you when significant, independently verified price drops occur on top Indian stores.
+        {status === 'notice' ? (
+          <div className="bg-white/10 border border-white/20 rounded-2xl p-6 text-center space-y-2 animate-in fade-in duration-200">
+            <AlertCircle className="w-8 h-8 text-amber-400 mx-auto" />
+            <h3 className="font-bold text-base text-white">Newsletter Backend in Preview</h3>
+            <p className="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed">
+              Email dispatch is temporarily disabled on this deployment while external mailing service integration is being configured. No emails will be sent to <strong>{email}</strong> at this time.
             </p>
+            <button
+              type="button"
+              onClick={() => {
+                setEmail('');
+                setStatus('idle');
+              }}
+              className="text-xs text-teal-300 underline pt-2 font-medium"
+            >
+              Reset
+            </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="pt-2 max-w-md mx-auto">
@@ -73,7 +74,7 @@ export function NewsletterSection() {
                 type="submit"
                 className="shrink-0 bg-teal-500 hover:bg-teal-400 active:bg-teal-600 text-slate-950 font-bold px-6 py-3 rounded-xl text-sm transition-all shadow-md hover:shadow-teal-500/20 focus:outline-none focus:ring-2 focus:ring-teal-400"
               >
-                Join Free
+                Join Preview
               </button>
             </div>
             {status === 'error' && (
@@ -83,7 +84,7 @@ export function NewsletterSection() {
             )}
             <div className="mt-3 flex items-center justify-center gap-2 text-[11px] text-slate-400">
               <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
-              <span>₹0 Cost • Zero Spam • Unsubscribe in one click anytime.</span>
+              <span>Preview Mode • Zero Spam • No emails sent currently.</span>
             </div>
           </form>
         )}

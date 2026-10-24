@@ -46,10 +46,10 @@ export function PriceComparisonTable({
           <thead>
             <tr className="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-600">
               <th className="py-3 px-4">Store</th>
-              <th className="py-3 px-4">Verified Price</th>
+              <th className="py-3 px-4">Benchmark Store Price</th>
               <th className="py-3 px-4 hidden sm:table-cell">Delivery & Availability</th>
               <th className="py-3 px-4 hidden md:table-cell">Bank / Payment Offers</th>
-              <th className="py-3 px-4 hidden lg:table-cell">Last Verified</th>
+              <th className="py-3 px-4 hidden lg:table-cell">Data Checked</th>
               <th className="py-3 px-4 text-right">Action</th>
             </tr>
           </thead>
@@ -74,7 +74,7 @@ export function PriceComparisonTable({
                       </Link>
                       {isBest && (
                         <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
-                          Lowest Price
+                          Benchmark Lowest
                         </span>
                       )}
                     </div>
@@ -120,7 +120,7 @@ export function PriceComparisonTable({
                           ? 'bg-teal-600 hover:bg-teal-700 text-white shadow-xs'
                           : 'border border-slate-300 hover:bg-slate-100 text-slate-700'
                       }`}
-                      rel="sponsored nofollow"
+                      rel="noopener noreferrer nofollow"
                     >
                       Visit Store
                       <ExternalLink className="w-3 h-3" />
@@ -133,7 +133,7 @@ export function PriceComparisonTable({
         </table>
       </div>
       <p className="text-[11px] text-slate-500 italic">
-        * Comparison strictly covers identical product SKU: &ldquo;{productName}&rdquo;. Prices verified from merchant listings.
+        * Comparison covers sample benchmark pricing for identical product SKU: &ldquo;{productName}&rdquo;. Official live merchant listings and affiliate tracking will be connected upon program approval.
       </p>
     </div>
   );

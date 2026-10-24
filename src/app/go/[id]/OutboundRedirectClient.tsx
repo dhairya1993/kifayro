@@ -36,7 +36,7 @@ export function OutboundRedirectClient({
 
       <a
         href={destinationUrl}
-        rel="sponsored nofollow"
+        rel="noopener noreferrer nofollow"
         className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-bold text-sm shadow-md hover:shadow-teal-900/10 transition-all focus:outline-none focus:ring-2 focus:ring-teal-600/50"
       >
         <span>Open {storeName} Immediately</span>

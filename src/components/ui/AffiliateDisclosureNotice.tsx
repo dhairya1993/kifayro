@@ -17,13 +17,13 @@ export function AffiliateDisclosureNotice({
     return (
       <span className={`text-[11px] text-slate-500 inline-flex items-center gap-1 ${className}`}>
         <ShieldCheck className="w-3 h-3 text-teal-600 inline" />
-        Eligible affiliate link.
+        Direct merchant link.
         <Link
           href="/affiliate-disclosure"
           className="underline hover:text-slate-800"
-          title="Learn how Kifayro earns commissions without increasing your price"
+          title="Learn about Kifayro's affiliate roadmap and commercial policies"
         >
-          Disclosure
+          Affiliate Policy
         </Link>
       </span>
     );
@@ -38,15 +38,15 @@ export function AffiliateDisclosureNotice({
           <ShieldCheck className="w-4 h-4 text-teal-600 shrink-0" />
           <span>
             {storeName
-              ? `Kifayro may earn an affiliate commission on eligible purchases made at ${storeName}.`
-              : 'Kifayro may earn a commission when you purchase through eligible links, at no additional cost to you.'}
+              ? `Kifayro is preparing for affiliate partnerships with ${storeName}. Outbound links currently direct to merchant storefronts without tracking.`
+              : 'Kifayro is preparing for affiliate partnerships. Outbound links currently direct to merchant storefronts without affiliate tracking.'}
           </span>
         </div>
         <Link
           href="/affiliate-disclosure"
           className="text-teal-700 font-medium hover:text-teal-900 underline shrink-0 whitespace-nowrap"
         >
-          Learn more
+          Disclosure
         </Link>
       </div>
     );
@@ -63,13 +63,13 @@ export function AffiliateDisclosureNotice({
         </div>
         <div className="space-y-1.5 flex-1">
           <h4 className="font-semibold text-slate-900 text-sm flex items-center gap-1.5">
-            Independent Research & Affiliate Disclosure
+            Affiliate Preparedness & Commercial Transparency
           </h4>
           <p className="leading-relaxed text-slate-600">
-            Kifayro is a ₹0-cost, free discovery platform for Indian consumers. When you click on product links, deals, or store buttons and make a qualifying purchase, we may receive a referral commission from retail partners like Amazon India, Flipkart, Myntra, Croma, and others.
+            Kifayro is an independent, ₹0-cost price comparison and deals discovery platform for Indian consumers. The platform is currently operating in platform preview mode and actively preparing for official affiliate partnerships with retailers like Amazon India, Flipkart, and other Indian merchant networks.
           </p>
           <p className="text-slate-600 leading-relaxed font-medium">
-            This commission never increases the price you pay. Our recommendations and price comparisons remain completely independent, objective, and driven strictly by price data.
+            Once official partnerships are approved, qualifying purchases made through eligible links may generate referral fees to support our platform operations, at zero additional cost to shoppers. In the current preview mode, all outbound links are standard direct merchant links without affiliate tracking or commercial commissions.
           </p>
           <div className="pt-1">
             <Link
@@ -77,7 +77,7 @@ export function AffiliateDisclosureNotice({
               className="text-teal-700 font-semibold hover:text-teal-900 underline inline-flex items-center gap-1"
             >
               <HelpCircle className="w-3.5 h-3.5" />
-              Read our full statutory disclosure & network policies
+              Read our full statutory disclosure & affiliate roadmap
             </Link>
           </div>
         </div>

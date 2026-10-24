@@ -59,9 +59,9 @@ export default async function HomePage() {
             {/* Trust Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-100/70 border border-teal-200 text-teal-900 text-xs font-semibold shadow-2xs">
               <ShieldCheck className="w-4 h-4 text-teal-700" />
-              <span>Transparent Price Discovery for India</span>
+              <span>Platform Preview</span>
               <span className="text-teal-400">•</span>
-              <span className="text-teal-800 font-normal">No Fake Countdowns</span>
+              <span className="text-teal-800 font-normal">Transparent Price Discovery for India</span>
             </div>
 
             {/* Headline & Tagline */}
@@ -73,7 +73,7 @@ export default async function HomePage() {
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-2xl mx-auto">
-              Discover verified deals, compare prices across trusted Indian stores, and avoid misleading festive sales discounts with honest price data.
+              Explore deals architecture, compare benchmark prices across trusted Indian stores, and discover transparent shopping intelligence.
             </p>
 
             {/* Main Hero Search Bar */}
@@ -165,10 +165,10 @@ export default async function HomePage() {
             <div>
               <div className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-teal-700">
                 <TrendingUp className="w-3.5 h-3.5 text-teal-600" />
-                Verified Discounts
+                Featured Offers
               </div>
               <h2 className="text-2xl font-black text-slate-900 tracking-tight mt-1">
-                Trending Deals Right Now
+                Trending Deals (Preview)
               </h2>
             </div>
             <Link
@@ -224,10 +224,10 @@ export default async function HomePage() {
                 Promo Vouchers
               </div>
               <h2 className="text-2xl font-black text-slate-900 tracking-tight mt-1">
-                Verified Indian Store Coupons
+                Curated Indian Store Coupons (Preview)
               </h2>
               <p className="text-xs text-slate-600 mt-1">
-                Tested against real merchant checkouts with transparent qualification terms.
+                Sample promotional structures and voucher formats illustrating qualification rules and spend thresholds.
               </p>
             </div>
             <Link

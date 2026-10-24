@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Coupon } from '@/types';
 import { stores } from '@/data/stores';
-import { formatINR, formatTimeAgo, formatDate } from '@/lib/formatters';
-import { Copy, Check, ShieldCheck, ChevronDown, ChevronUp, Ticket } from 'lucide-react';
+import { formatINR, formatDate } from '@/lib/formatters';
+import { Copy, Check, ChevronDown, ChevronUp, Ticket } from 'lucide-react';
 
 interface CouponCardProps {
   coupon: Coupon;
@@ -34,9 +34,9 @@ export function CouponCard({ coupon }: CouponCardProps) {
             {store?.name || coupon.store}
           </Link>
 
-          <span className="text-[11px] font-semibold text-teal-800 bg-teal-50 border border-teal-200/60 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
-            Verified
+          <span className="text-[11px] font-semibold text-slate-700 bg-slate-100 border border-slate-200/80 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+            <Ticket className="w-3.5 h-3.5 text-teal-600" />
+            Sample Voucher
           </span>
         </div>
 
@@ -113,7 +113,7 @@ export function CouponCard({ coupon }: CouponCardProps) {
               ))}
             </ul>
             <div className="pt-2 text-[10px] text-slate-400">
-              Last verified against merchant checkout: {formatTimeAgo(coupon.lastVerifiedAt)}
+              Sample voucher for interface testing. Merchant terms subject to validation upon program launch.
             </div>
           </div>
         )}

@@ -5,26 +5,26 @@ export const affiliateProviders: AffiliateProvider[] = [
     id: 'prov-amazon-in',
     name: 'Amazon Associates India',
     networkCode: 'AMZ-IN',
-    status: 'demo',
+    status: 'pending_approval',
     region: 'India',
     portalUrl: 'https://affiliate-program.amazon.in/',
     disclosureRequirement:
-      'As an Amazon Associate, Kifayro earns from qualifying purchases. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.',
+      'Statutory disclosure upon program approval: As an Amazon Associate, Kifayro earns from qualifying purchases. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.',
     notes:
-      'Currently operating in demo verification mode. Live Product Advertising API (PA-API v5.0) integration will be connected once the official associate application is formally approved and qualifying sales are achieved.',
+      'Application and compliance infrastructure in preparation. Kifayro does not currently possess an approved Amazon Associate tracking ID or active PA-API credentials.',
     supportsSubIds: false,
   },
   {
     id: 'prov-flipkart',
     name: 'Flipkart Affiliate Programme',
     networkCode: 'FK-IN',
-    status: 'demo',
+    status: 'pending_approval',
     region: 'India',
     portalUrl: 'https://affiliate.flipkart.com/',
     disclosureRequirement:
-      'Kifayro participates in affiliate marketing programs, earning commissions when users purchase through links to Flipkart.',
+      'Statutory disclosure upon program approval: Kifayro will disclose referral fees earned on qualifying purchases through authorized Flipkart affiliate links.',
     notes:
-      'Direct publisher API currently paused for open public registration; operating with verified direct merchant links and demo sample data.',
+      'Application in preparation. Direct publisher API currently paused for open public registration; operating with direct merchant links and sample data.',
     supportsSubIds: true,
   },
   {
@@ -35,9 +35,9 @@ export const affiliateProviders: AffiliateProvider[] = [
     region: 'India & South Asia',
     portalUrl: 'https://www.cuelinks.com/',
     disclosureRequirement:
-      'Merchants featured on Kifayro may be monetized via verified multi-network sub-affiliate channels.',
+      'Statutory disclosure upon network approval: Select merchant links on Kifayro may be monetized via verified multi-network sub-affiliate channels once approved.',
     notes:
-      'Application prepared for unified merchant access (Croma, Tata CLiQ, Myntra, Nykaa, AJIO). Awaiting publisher credential dispatch.',
+      'Application prepared for unified merchant access (Croma, Tata CLiQ, Myntra, Nykaa, AJIO). No active monetization tracking is currently enabled.',
     supportsSubIds: true,
   },
   {
@@ -48,9 +48,9 @@ export const affiliateProviders: AffiliateProvider[] = [
     region: 'India',
     portalUrl: 'https://www.vcommission.com/',
     disclosureRequirement:
-      'Select coupon offers and retail links are subject to affiliate tracking agreements.',
+      'Statutory disclosure upon network approval: Select coupon offers and retail links will be subject to affiliate tracking agreements once active.',
     notes:
-      'Secondary backup network for coupon feeds and retail offer verification in India.',
+      'Secondary backup network for coupon feeds and retail offer verification in India. Currently pending partner activation.',
     supportsSubIds: true,
   },
 ];

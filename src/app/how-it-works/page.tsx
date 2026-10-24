@@ -20,18 +20,18 @@ export default function HowItWorksPage() {
     },
     {
       step: '02',
-      title: 'Manual & Algorithmic Price Verification',
-      desc: 'We verify prices against statutory MRPs and recent 90-day selling baselines. If a retailer raises the MRP before offering a discount, we calculate the discount against true street price.',
+      title: 'Manual & Algorithmic Price Verification Architecture',
+      desc: 'We structure price tracking against statutory MRPs and 90-day selling baselines, preparing algorithms to filter out misleading festive price inflations.',
     },
     {
       step: '03',
       title: 'SKU-Level Store Comparison',
-      desc: 'We cross-reference identical model codes (SKUs). A product with 8GB RAM is never compared with a 16GB variant. We display active bank offers, delivery timelines, and verified timestamps side-by-side.',
+      desc: 'We cross-reference identical model codes (SKUs). A product with 8GB RAM is never compared with a 16GB variant. We structure comparisons with active bank offers, delivery estimates, and check timestamps.',
     },
     {
       step: '04',
-      title: 'Transparent Affiliate Routing',
-      desc: 'When you decide to purchase, our safe outbound link (/go/[id]) sends you directly to the verified merchant storefront. We may receive an advertising commission from eligible sales without charging you a single extra rupee.',
+      title: 'Direct Merchant Navigation & Affiliate Preparedness',
+      desc: 'When you decide to purchase, our safe outbound link (/go/[id]) sends you directly to the merchant storefront. External links currently operate without affiliate tracking. Once official partnerships are approved, qualifying purchases will support the platform at zero extra cost to shoppers.',
     },
   ];
 
@@ -80,10 +80,10 @@ export default function HowItWorksPage() {
         </p>
         <div className="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-teal-400">
           <Link href="/deals" className="hover:underline flex items-center gap-1">
-            Browse Verified Deals →
+            Browse Deals Catalogue →
           </Link>
           <Link href="/compare" className="hover:underline flex items-center gap-1">
-            Compare Live Prices →
+            Compare Benchmark Prices →
           </Link>
         </div>
       </div>

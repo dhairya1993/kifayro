@@ -31,8 +31,14 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${deal.title} | Verified Deal`,
+    title: `${deal.title} — Deal Details (Sample Offer) | Kifayro`,
     description: deal.description,
+    robots: deal.isDemoData
+      ? {
+          index: false,
+          follow: true,
+        }
+      : undefined,
   };
 }
 
@@ -95,7 +101,7 @@ export default async function DealDetailPage({
             ) : deal.discountPercentage ? (
               <span className="text-xs font-black bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-full flex items-center gap-1">
                 <Tag className="w-3.5 h-3.5" />
-                {deal.discountPercentage}% OFF Verified
+                {deal.discountPercentage}% OFF (Sample Offer)
               </span>
             ) : null}
           </div>
@@ -158,13 +164,13 @@ export default async function DealDetailPage({
         {/* Verification Meta */}
         <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1 text-teal-800 font-medium">
+            <span className="flex items-center gap-1 text-slate-700 font-medium">
               <ShieldCheck className="w-4 h-4 text-teal-600" />
-              Verified via {deal.dealSource}
+              Sample Offer ({deal.dealSource})
             </span>
             <span className="flex items-center gap-1">
               <Clock className="w-3.5 h-3.5 text-slate-400" />
-              {formatTimeAgo(deal.lastVerifiedAt)}
+              Catalogue record {formatTimeAgo(deal.lastVerifiedAt)}
             </span>
           </div>
 
@@ -179,9 +185,9 @@ export default async function DealDetailPage({
             <Link
               href={deal.affiliateUrl}
               className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-2xl bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-bold text-base shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-teal-600/50"
-              rel="sponsored nofollow"
+              rel="noopener noreferrer nofollow"
             >
-              <span>Claim Deal on {store?.name || 'Merchant Site'}</span>
+              <span>View Deal on {store?.name || 'Merchant Site'}</span>
               <ExternalLink className="w-4 h-4 ml-1" />
             </Link>
           ) : (

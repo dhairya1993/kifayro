@@ -66,7 +66,7 @@ export default async function StoreDetailPage({
             </div>
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-md">
-                Verified Indian Merchant
+                Indian Merchant Profile
               </span>
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1">
                 {store.name} Deals & Offers
@@ -104,14 +104,14 @@ export default async function StoreDetailPage({
         </div>
       </div>
 
-      <DemoBanner itemType={`${store.name} Verified Offers Feed`} />
+      <DemoBanner itemType={`${store.name} Sample Offers Feed`} />
 
       {/* Active Deals for this Store */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
           <Tag className="w-5 h-5 text-teal-600" />
           <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-            Verified Deals at {store.name} ({allDeals.length})
+            Deals & Offers at {store.name} ({allDeals.length})
           </h2>
         </div>
 
@@ -134,7 +134,7 @@ export default async function StoreDetailPage({
           <div className="flex items-center gap-2">
             <Ticket className="w-5 h-5 text-teal-600" />
             <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-              Tested Coupons for {store.name}
+              Promotional Coupons for {store.name}
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

@@ -9,13 +9,13 @@ export function AnnouncementBar() {
         <div className="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
           <span className="inline-flex items-center gap-1 bg-teal-500/20 text-teal-300 px-2 py-0.5 rounded-full text-[11px] font-semibold border border-teal-500/30">
             <ShieldCheck className="w-3.5 h-3.5" />
-            Zero Fake Discounts
+            Platform Preview
           </span>
           <span className="text-slate-300 hidden sm:inline">
-            Every deal and comparison on Kifayro includes a genuine verification timestamp and SKU check.
+            Kifayro Preview Mode — Transparent price discovery architecture and sample benchmark deals for Indian shoppers.
           </span>
           <span className="text-slate-300 sm:hidden">
-            Verified Indian deals & honest prices.
+            Kifayro Preview — Benchmark Indian deals.
           </span>
         </div>
         <div className="flex items-center gap-3 shrink-0 text-slate-300">

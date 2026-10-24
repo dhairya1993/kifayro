@@ -28,13 +28,13 @@ export default async function ComparePage() {
       <div className="space-y-3">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200">
           <Scale className="w-4 h-4 text-teal-600" />
-          Rigorous SKU-Level Verification
+          SKU-Level Comparison Architecture
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
           Multi-Store Price Comparison Engine
         </h1>
         <p className="text-sm text-slate-600 max-w-3xl leading-relaxed">
-          At Kifayro, we believe in fair, verified price comparisons. We strictly track identical product SKUs across major Indian retailers so you never get mislead by mismatched memory configurations or older processor variants.
+          At Kifayro, we believe in fair, transparent price comparisons. We structure comparisons on identical product SKUs across major Indian retailers so you never get mislead by mismatched memory configurations or older processor variants.
         </p>
       </div>
 
@@ -101,7 +101,7 @@ export default async function ComparePage() {
                   </div>
 
                   <div className="text-left sm:text-right">
-                    <span className="text-[11px] text-slate-400 font-medium">Best Verified Price:</span>
+                    <span className="text-[11px] text-slate-400 font-medium">Benchmark Lowest Price:</span>
                     <div className="text-2xl font-black text-slate-900">
                       {formatINR(lowestPrice)}
                     </div>

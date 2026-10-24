@@ -74,7 +74,46 @@ export interface IDataSourceAdapter {
     storeName: string;
     isVerified: boolean;
     isDemo: boolean;
+    isAffiliateTracked: boolean;
+    trackingStatus: 'direct_merchant_link' | 'pending_approval' | 'active_affiliate';
   } | null>;
+}
+
+const ALLOWED_DESTINATION_HOSTS = new Set([
+  'amazon.in',
+  'www.amazon.in',
+  'amzn.to',
+  'amzn.in',
+  'flipkart.com',
+  'www.flipkart.com',
+  'dl.flipkart.com',
+  'croma.com',
+  'www.croma.com',
+  'reliancedigital.in',
+  'www.reliancedigital.in',
+  'tatacliq.com',
+  'www.tatacliq.com',
+  'myntra.com',
+  'www.myntra.com',
+  'nykaa.com',
+  'www.nykaa.com',
+  'ajio.com',
+  'www.ajio.com',
+  'vijaysales.com',
+  'www.vijaysales.com',
+]);
+
+function isAllowedDestinationUrl(rawUrl: string): boolean {
+  try {
+    const parsed = new URL(rawUrl);
+    if (parsed.protocol !== 'https:') {
+      return false;
+    }
+    const hostname = parsed.hostname.toLowerCase();
+    return ALLOWED_DESTINATION_HOSTS.has(hostname);
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -292,7 +331,7 @@ export class LocalDataSourceAdapter implements IDataSourceAdapter {
 
   /**
    * Secure destination resolver
-   * Only resolves against trusted server-side mappings.
+   * Only resolves against trusted server-side mappings and strictly allowlisted hostnames.
    * NEVER accepts arbitrary external URLs from client queries!
    */
   async resolveOutboundTarget(
@@ -303,61 +342,97 @@ export class LocalDataSourceAdapter implements IDataSourceAdapter {
     storeName: string;
     isVerified: boolean;
     isDemo: boolean;
+    isAffiliateTracked: boolean;
+    trackingStatus: 'direct_merchant_link' | 'pending_approval' | 'active_affiliate';
   } | null> {
+    let resolved: {
+      destinationUrl: string;
+      label: string;
+      storeName: string;
+      isVerified: boolean;
+      isDemo: boolean;
+      isAffiliateTracked: boolean;
+      trackingStatus: 'direct_merchant_link' | 'pending_approval' | 'active_affiliate';
+    } | null = null;
+
     // 1. Check if it's a product
     const product = products.find((p) => p.id === targetId || p.slug === targetId);
     if (product) {
       const storeObj = stores.find((s) => s.slug === product.store);
-      return {
+      resolved = {
         destinationUrl: product.productUrl,
         label: product.name,
         storeName: storeObj ? storeObj.name : product.store,
-        isVerified: true,
+        isVerified: false, // Sample demo record
         isDemo: product.isDemoData,
+        isAffiliateTracked: false, // Affiliate programs pending approval
+        trackingStatus: 'direct_merchant_link',
       };
     }
 
     // 2. Check if it's a deal
-    const deal = deals.find((d) => d.id === targetId || d.slug === targetId);
-    if (deal) {
-      const prod = products.find((p) => p.id === deal.productId);
-      const storeObj = stores.find((s) => s.slug === deal.store);
-      return {
-        destinationUrl: prod ? prod.productUrl : storeObj ? storeObj.websiteUrl : 'https://www.kifayro.com',
-        label: deal.title,
-        storeName: storeObj ? storeObj.name : deal.store,
-        isVerified: deal.status === 'active',
-        isDemo: deal.isDemoData,
-      };
+    if (!resolved) {
+      const deal = deals.find((d) => d.id === targetId || d.slug === targetId);
+      if (deal) {
+        const prod = products.find((p) => p.id === deal.productId);
+        const storeObj = stores.find((s) => s.slug === deal.store);
+        const destinationUrl = prod ? prod.productUrl : storeObj ? storeObj.websiteUrl : '';
+        if (destinationUrl) {
+          resolved = {
+            destinationUrl,
+            label: deal.title,
+            storeName: storeObj ? storeObj.name : deal.store,
+            isVerified: false,
+            isDemo: deal.isDemoData,
+            isAffiliateTracked: false,
+            trackingStatus: 'direct_merchant_link',
+          };
+        }
+      }
     }
 
     // 3. Check if it's a store
-    const store = stores.find((s) => s.id === targetId || s.slug === targetId);
-    if (store) {
-      return {
-        destinationUrl: store.websiteUrl,
-        label: `${store.name} Storefront`,
-        storeName: store.name,
-        isVerified: true,
-        isDemo: store.affiliateProgramStatus === 'demo',
-      };
+    if (!resolved) {
+      const store = stores.find((s) => s.id === targetId || s.slug === targetId);
+      if (store) {
+        resolved = {
+          destinationUrl: store.websiteUrl,
+          label: `${store.name} Official Storefront`,
+          storeName: store.name,
+          isVerified: true,
+          isDemo: store.affiliateProgramStatus === 'demo',
+          isAffiliateTracked: false,
+          trackingStatus: 'direct_merchant_link',
+        };
+      }
     }
 
     // 4. Check known comparison links
-    for (const p of products) {
-      if (p.comparisons) {
-        for (const comp of p.comparisons) {
-          if (comp.affiliateUrl === `/go/${targetId}`) {
-            return {
-              destinationUrl: comp.productUrl,
-              label: `${p.name} on ${comp.storeName}`,
-              storeName: comp.storeName,
-              isVerified: true,
-              isDemo: true,
-            };
+    if (!resolved) {
+      for (const p of products) {
+        if (p.comparisons) {
+          for (const comp of p.comparisons) {
+            if (comp.affiliateUrl === `/go/${targetId}`) {
+              resolved = {
+                destinationUrl: comp.productUrl,
+                label: `${p.name} on ${comp.storeName}`,
+                storeName: comp.storeName,
+                isVerified: false,
+                isDemo: true,
+                isAffiliateTracked: false,
+                trackingStatus: 'direct_merchant_link',
+              };
+              break;
+            }
           }
         }
+        if (resolved) break;
       }
+    }
+
+    // Enforce strict destination URL allowlist validation
+    if (resolved && isAllowedDestinationUrl(resolved.destinationUrl)) {
+      return resolved;
     }
 
     return null;

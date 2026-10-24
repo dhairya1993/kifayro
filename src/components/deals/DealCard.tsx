@@ -32,6 +32,11 @@ export function DealCard({ deal }: DealCardProps) {
           </Link>
 
           <div className="flex items-center gap-1.5">
+            {deal.isDemoData && (
+              <span className="text-[10px] font-medium text-amber-800 bg-amber-50 border border-amber-200/60 px-1.5 py-0.5 rounded">
+                Sample
+              </span>
+            )}
             {isExpired ? (
               <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-200 text-slate-600">
                 Expired
@@ -39,11 +44,11 @@ export function DealCard({ deal }: DealCardProps) {
             ) : deal.discountPercentage ? (
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200/60 flex items-center gap-1">
                 <Tag className="w-3 h-3" />
-                {deal.discountPercentage}% OFF
+                {deal.discountPercentage}% OFF {deal.isDemoData ? '(Sample)' : ''}
               </span>
             ) : (
               <span className="px-2 py-0.5 rounded-full text-[11px] font-medium bg-teal-50 text-teal-700 border border-teal-200/60">
-                Special Offer
+                {deal.isDemoData ? 'Sample Offer' : 'Special Offer'}
               </span>
             )}
           </div>
@@ -74,7 +79,7 @@ export function DealCard({ deal }: DealCardProps) {
       <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between gap-3">
         <div className="flex items-center gap-1 text-[11px] text-slate-500">
           <Clock className="w-3.5 h-3.5 text-slate-400" />
-          <span>Verified {formatTimeAgo(deal.lastVerifiedAt)}</span>
+          <span>{deal.isDemoData ? 'Sample Offer Record' : `Verified ${formatTimeAgo(deal.lastVerifiedAt)}`}</span>
         </div>
 
         <div className="flex items-center gap-2">
@@ -89,9 +94,9 @@ export function DealCard({ deal }: DealCardProps) {
             <Link
               href={deal.affiliateUrl}
               className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white text-xs font-semibold shadow-xs hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-teal-600/50"
-              rel="sponsored nofollow"
+              rel="noopener noreferrer nofollow"
             >
-              Get Deal
+              View Deal
               <ExternalLink className="w-3 h-3 ml-0.5" />
             </Link>
           ) : (

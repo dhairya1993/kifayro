@@ -19,12 +19,19 @@ export function ProductCard({ product }: ProductCardProps) {
       <div>
         {/* Top meta row */}
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-2 py-0.5 rounded-md">
-            {product.brand}
-          </span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-2 py-0.5 rounded-md">
+              {product.brand}
+            </span>
+            {product.isDemoData && (
+              <span className="text-[10px] font-medium text-amber-800 bg-amber-50 border border-amber-200/60 px-1.5 py-0.5 rounded">
+                Sample
+              </span>
+            )}
+          </div>
           {discount ? (
             <span className="text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200/70 px-2 py-0.5 rounded-full">
-              {discount}% OFF
+              {discount}% OFF {product.isDemoData ? '(Sample)' : ''}
             </span>
           ) : null}
         </div>
@@ -56,10 +63,12 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Store & Verification */}
         <div className="flex items-center gap-1.5 mt-2 text-xs text-slate-500">
-          <span>Found on</span>
+          <span>{product.isDemoData ? 'Benchmark' : 'Found on'}</span>
           <span className="font-semibold text-slate-700">{store?.name || product.store}</span>
           <span className="text-slate-300">•</span>
-          <span className="text-[11px] text-slate-400">{formatTimeAgo(product.lastVerifiedAt)}</span>
+          <span className="text-[11px] text-slate-400">
+            {product.isDemoData ? 'Sample Record' : formatTimeAgo(product.lastVerifiedAt)}
+          </span>
         </div>
 
         {/* Best Deal Note if comparative */}
@@ -93,9 +102,9 @@ export function ProductCard({ product }: ProductCardProps) {
           <Link
             href={product.affiliateUrl}
             className="w-full text-center py-2 px-3 rounded-xl bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white text-xs font-semibold shadow-xs transition-colors flex items-center justify-center gap-1"
-            rel="sponsored nofollow"
+            rel="noopener noreferrer nofollow"
           >
-            Buy Store
+            Visit Store
             <ExternalLink className="w-3 h-3" />
           </Link>
         </div>

@@ -112,8 +112,8 @@ export function DealsListingClient({
               onChange={(e) => setSortBy(e.target.value as 'verified' | 'discount' | 'title')}
               className="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-teal-500 transition-colors"
             >
-              <option value="verified">Sort: Most Recently Verified</option>
-              <option value="discount">Sort: Highest Verified Discount</option>
+              <option value="verified">Sort: Most Recent</option>
+              <option value="discount">Sort: Highest Discount</option>
               <option value="title">Sort: Title (A-Z)</option>
             </select>
           </div>
@@ -122,7 +122,7 @@ export function DealsListingClient({
         {/* Active Filter Chips & Reset */}
         <div className="flex items-center justify-between flex-wrap gap-2 pt-2 border-t border-slate-100 text-xs">
           <div className="text-slate-500 font-medium">
-            Showing <strong className="text-slate-900">{filteredDeals.length}</strong> verified offers
+            Showing <strong className="text-slate-900">{filteredDeals.length}</strong> sample offers
           </div>
           {(selectedStore !== 'all' || selectedStatus !== 'all' || searchTerm) && (
             <button

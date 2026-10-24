@@ -16,9 +16,9 @@ export function Footer() {
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-semibold text-white text-sm">Zero Fabricated Discounts</h4>
+              <h4 className="font-semibold text-white text-sm">Truthful Price Discovery</h4>
               <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                We reject artificial festive markups and fake countdowns. Every discount is calculated against verified baseline prices.
+                We reject artificial festive markups and misleading sale countdowns. Comparison architecture is built on verifiable baseline pricing.
               </p>
             </div>
           </div>
@@ -44,9 +44,9 @@ export function Footer() {
               </svg>
             </div>
             <div>
-              <h4 className="font-semibold text-white text-sm">Transparent Affiliate Model</h4>
+              <h4 className="font-semibold text-white text-sm">Transparent Commercial Policy</h4>
               <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                We earn referral fees on eligible purchases at no extra cost to you. Editorial recommendations remain 100% independent.
+                Kifayro is preparing for official affiliate partnerships. Once authorized, eligible purchases will support platform operations with full disclosure at no extra cost to shoppers.
               </p>
             </div>
           </div>
@@ -117,7 +117,7 @@ export function Footer() {
         {/* Detailed Affiliate Disclaimer text */}
         <div className="mt-10 pt-6 border-t border-slate-800 text-xs text-slate-400 space-y-2 leading-relaxed">
           <p>
-            <strong className="text-slate-300">Statutory Affiliate Notice:</strong> Kifayro participates in various affiliate marketing programs, including the Amazon Associates India Program and other verified merchant networks. As an affiliate, we may earn advertising fees and qualifying commissions by linking to official partner websites at absolutely no additional cost to you. Product prices and availability are accurate as of the last verification date/time indicated and are subject to continuous change on merchant platforms.
+            <strong className="text-slate-300">Affiliate Preparedness & Transparency Notice:</strong> Kifayro is currently operating in platform demonstration mode and is actively preparing to participate in official affiliate programs (including the Amazon Associates India Program and Flipkart Affiliate Programme). Kifayro does not currently earn affiliate commissions or claim active partner status. External links currently provide standard direct merchant navigation without affiliate tracking. Once official network approvals are finalized, qualifying purchases made through approved links may earn referral commissions at zero extra cost to shoppers. Product prices and availability are subject to continuous change on merchant platforms.
           </p>
         </div>
 

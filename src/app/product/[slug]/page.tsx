@@ -32,8 +32,14 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${product.name} — Best Price & Deals in India`,
-    description: `Compare prices for ${product.name}. Verified current price: ${formatINR(product.currentPrice)} with multi-store comparison across Amazon India, Flipkart, and Croma.`,
+    title: `${product.name} — Specs & Multi-Store Price Comparison (Sample Data) | Kifayro`,
+    description: `Specifications and multi-store benchmark price comparison for ${product.name} across Indian stores on Kifayro.`,
+    robots: product.isDemoData
+      ? {
+          index: false,
+          follow: true,
+        }
+      : undefined,
   };
 }
 
@@ -60,27 +66,13 @@ export default async function ProductDetailPage({
     .filter((d) => d.productId === product.id || d.store === product.store)
     .slice(0, 3);
 
-  // Schema.org Product structured data without fake ratings
+  // Structured data: Do not emit unsupported Product Offer schemas for demo/sample products
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: product.name,
+    '@type': 'WebPage',
+    name: `${product.name} (Sample Specification & Price Comparison)`,
     description: product.description,
-    brand: {
-      '@type': 'Brand',
-      name: product.brand,
-    },
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: product.currency,
-      price: product.currentPrice,
-      availability:
-        product.availabilityStatus === 'in_stock'
-          ? 'https://schema.org/InStock'
-          : 'https://schema.org/OutOfStock',
-      url: `https://kifayro.vercel.app/product/${product.slug}`,
-      priceValidUntil: '2026-12-31',
-    },
+    url: `https://kifayro.vercel.app/product/${product.slug}`,
   };
 
   return (
@@ -116,7 +108,7 @@ export default async function ProductDetailPage({
 
             {discount && (
               <div className="absolute top-4 left-4 bg-amber-50 text-amber-800 border border-amber-200 font-bold text-xs px-3 py-1 rounded-full">
-                {discount}% OFF Verified
+                {discount}% Benchmark Variance (Sample)
               </div>
             )}
           </div>
@@ -132,6 +124,11 @@ export default async function ProductDetailPage({
                 <span className="text-xs text-slate-500 font-medium">
                   Store: <strong className="text-slate-800">{store?.name || product.store}</strong>
                 </span>
+                {product.isDemoData && (
+                  <span className="text-[10px] font-semibold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">
+                    Sample Data
+                  </span>
+                )}
               </div>
 
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-snug">
@@ -156,20 +153,20 @@ export default async function ProductDetailPage({
                 )}
                 {discount && (
                   <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">
-                    Save {discount}%
+                    Sample Diff: {discount}%
                   </span>
                 )}
               </div>
 
               <div className="flex items-center gap-3 text-xs text-slate-500 flex-wrap">
-                <span className="flex items-center gap-1 text-teal-800 font-medium">
+                <span className="flex items-center gap-1 text-slate-700 font-medium">
                   <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
-                  Verified Indian Street Price
+                  Benchmark Store Price (Sample)
                 </span>
                 <span>•</span>
                 <span className="flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5 text-slate-400" />
-                  Last checked {formatTimeAgo(product.lastVerifiedAt)}
+                  Catalogue record {formatTimeAgo(product.lastVerifiedAt)}
                 </span>
               </div>
 
@@ -178,9 +175,9 @@ export default async function ProductDetailPage({
                 <Link
                   href={product.affiliateUrl}
                   className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-bold text-sm shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-teal-600/50"
-                  rel="sponsored nofollow"
+                  rel="noopener noreferrer nofollow"
                 >
-                  <span>Buy on {store?.name || product.store}</span>
+                  <span>Visit {store?.name || product.store}</span>
                   <ExternalLink className="w-4 h-4" />
                 </Link>
 

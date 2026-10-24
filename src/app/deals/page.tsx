@@ -7,9 +7,9 @@ import { AffiliateDisclosureNotice } from '@/components/ui/AffiliateDisclosureNo
 import { DealsListingClient } from './DealsListingClient';
 
 export const metadata: Metadata = {
-  title: 'All Deals & Verified Offers in India',
+  title: 'Indian Deals & Offers (Preview) | Kifayro',
   description:
-    'Browse verified discounts, price drops, and special offers across top Indian e-commerce stores including Amazon India, Flipkart, Croma, and Myntra.',
+    'Browse sample discounts, price drops, and promotional offers across top Indian e-commerce stores on Kifayro.',
 };
 
 export default async function DealsPage({
@@ -34,17 +34,17 @@ export default async function DealsPage({
 
       <div className="space-y-2">
         <h1 className="text-3xl font-black text-slate-900 tracking-tight">
-          Verified Indian Deals & Offers
+          Indian Deals & Offers (Preview)
         </h1>
         <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
-          Filter and sort through verified offers across electronics, smartphones, laptops, fashion, and home appliances. Every deal is timestamped with its last manual check.
+          Filter and sort sample deal records across electronics, smartphones, laptops, fashion, and home appliances. Live verified offers will be integrated as official merchant feeds are onboarded.
         </p>
       </div>
 
       <DemoBanner itemType="Deals Directory" />
 
       {/* Interactive deals filtering, sorting and listing */}
-      <Suspense fallback={<div className="p-12 text-center text-xs text-slate-400">Loading verified deals...</div>}>
+      <Suspense fallback={<div className="p-12 text-center text-xs text-slate-400">Loading deal catalogue...</div>}>
         <DealsListingClient
           initialDeals={allDeals}
           stores={stores}

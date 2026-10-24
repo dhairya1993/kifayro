@@ -4,9 +4,9 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ShieldCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Affiliate Disclosure & Transparency Policy | Kifayro',
+  title: 'Affiliate Transparency Policy & Program Readiness | Kifayro',
   description:
-    'Full transparency disclosure regarding Kifayro’s affiliate partnerships with Amazon India, Flipkart, and other online retailers.',
+    'Full transparency disclosure regarding Kifayro’s affiliate program readiness, merchant link policy, and commercial independence.',
 };
 
 export default function AffiliateDisclosurePage() {
@@ -20,48 +20,51 @@ export default function AffiliateDisclosurePage() {
           Transparency & Commercial Intent
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-          Affiliate Disclosure
+          Affiliate Disclosure & Program Readiness
         </h1>
         <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
-          Last Updated: October 2026 • Standard Disclosure for Indian Online Consumers
+          Last Updated: October 2026 • Standard Consumer Transparency for Indian Online Shoppers
         </p>
       </header>
 
       <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-2xs space-y-6 text-sm text-slate-700 leading-relaxed">
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-slate-900">1. Core Disclosure</h2>
+          <h2 className="text-lg font-bold text-slate-900">1. Current Operating Status & Core Disclosure</h2>
           <p>
-            Kifayro (<strong className="text-slate-900">kifayro.com</strong> / <strong className="text-slate-900">kifayro.vercel.app</strong>) is a free price comparison, deals aggregation, and shopping discovery platform for Indian consumers.
+            Kifayro (<strong className="text-slate-900">kifayro.vercel.app</strong>) is an independent, free deals discovery and price comparison architecture for Indian consumers.
           </p>
-          <div className="p-4 bg-teal-50 border border-teal-200 rounded-2xl text-teal-950 font-medium">
-            “Kifayro may earn a commission when you purchase through eligible links, at no additional cost to you.”
+          <div className="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-950 font-medium text-xs leading-relaxed space-y-1">
+            <p className="font-bold text-sm text-amber-900">Platform Preview & Affiliate Notice</p>
+            <p>
+              Kifayro is currently operating in platform demonstration mode. Kifayro does <strong>not</strong> currently participate in Amazon Associates India, the Flipkart Affiliate Programme, or any commercial affiliate networks, and does <strong>not</strong> claim active partner status. External product and deal links currently route directly to standard merchant storefronts with zero affiliate tracking and zero referral commissions.
+            </p>
           </div>
           <p>
-            When you click on an external link or deal button on Kifayro and navigate to a partner merchant (such as Amazon India, Flipkart, Croma, Reliance Digital, Myntra, or Tata CLiQ) and complete a qualifying purchase, the merchant may pay us a referral commission.
+            We are actively preparing compliance infrastructure and application materials to participate in official affiliate programs. Once applications are formally submitted and approved by respective retailers, eligible links will be enabled with full statutory disclosures.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-slate-900">2. Does It Affect Your Price?</h2>
+          <h2 className="text-lg font-bold text-slate-900">2. Will Affiliate Links Affect What You Pay?</h2>
           <p>
-            <strong className="text-slate-900">No.</strong> The price you pay on the merchant website is exactly the same as if you visited the merchant directly or searched for the item yourself. In many cases, through verified bank offer alerts and tested coupon codes, you may pay significantly less. The commission is paid by the retailer out of their standard marketing budget.
+            <strong className="text-slate-900">No.</strong> When authorized affiliate tracking is introduced in the future, the price you pay on the merchant website remains identical to visiting the store directly. Retailer affiliate commissions are paid strictly from the merchant’s marketing budget and never added onto the consumer purchase price.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-slate-900">3. Specific Program Notices</h2>
+          <h2 className="text-lg font-bold text-slate-900">3. Specific Program Readiness Notices</h2>
           <div className="space-y-3">
             <div className="p-4 bg-slate-50 rounded-xl space-y-1">
-              <h3 className="font-bold text-slate-900 text-xs">Amazon Associates India</h3>
-              <p className="text-xs text-slate-600">
-                Kifayro participates in the Amazon Associates India Programme, an affiliate advertising initiative designed to provide a means for websites to earn advertising fees by advertising and linking to Amazon.in. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.
+              <h3 className="font-bold text-slate-900 text-xs">Amazon Associates India (Preparation in Progress)</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Kifayro is being structured to comply fully with the Amazon Associates Program Operating Agreement and Associates Program Policies. Kifayro does not currently possess an approved Amazon Associate tracking ID or active PA-API v5 credentials. All Amazon links are direct merchant navigation links. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.
               </p>
             </div>
 
             <div className="p-4 bg-slate-50 rounded-xl space-y-1">
-              <h3 className="font-bold text-slate-900 text-xs">Flipkart & Multi-Network Affiliates</h3>
-              <p className="text-xs text-slate-600">
-                Kifayro participates in affiliate marketing arrangements with Flipkart, Croma, Tata CLiQ, Myntra, and Nykaa directly or through authorized sub-affiliate networks. All trademarks, service marks, and logos belong to their respective corporate owners.
+              <h3 className="font-bold text-slate-900 text-xs">Flipkart & Other Indian Retailers (Preparation in Progress)</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Kifayro is preparing publisher applications for Flipkart, Croma, Tata CLiQ, Reliance Digital, Myntra, and Nykaa directly or through authorized publisher platforms. No active affiliate commission agreements or commercial partnerships currently exist. All retailer trademarks, service marks, and logos belong to their respective corporate owners.
               </p>
             </div>
           </div>
@@ -70,14 +73,14 @@ export default function AffiliateDisclosurePage() {
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-slate-900">4. Editorial Independence</h2>
           <p>
-            Our product comparisons, buying guides, and deal picks are selected independently by our research team. We never accept payment to rate an inferior product higher than a superior one, nor do we falsely mark a deal as &ldquo;lowest price in India&rdquo; when verified data does not support the claim.
+            Our comparison architecture, buying guides, and deal picks are selected independently by our editorial research desk. We never accept payment to promote an inferior product over a superior one, nor do we falsely claim historical lowest prices when verified data is not present.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-slate-900">5. Contact Information</h2>
+          <h2 className="text-lg font-bold text-slate-900">5. Contact Information & Inquiries</h2>
           <p>
-            If you have questions or require further clarification regarding our commercial relationships, contact our compliance desk at <code className="text-teal-700 bg-slate-100 px-1 py-0.5 rounded font-mono">affiliates@kifayro.com</code>.
+            Our custom domain email inboxes (including <code className="bg-slate-100 px-1 py-0.5 rounded font-mono text-slate-600">affiliates@kifayro.com</code>) are currently pending DNS and mail server configuration. If you have compliance inquiries or merchant feedback, please visit our <a href="/contact" className="text-teal-700 underline font-semibold">Contact Page</a> or review our open source repository on GitHub.
           </p>
         </section>
       </div>

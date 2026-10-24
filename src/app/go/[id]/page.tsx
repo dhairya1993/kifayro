@@ -6,8 +6,8 @@ import { OutboundRedirectClient } from './OutboundRedirectClient';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Redirecting to Partner Store | Kifayro',
-  description: 'Safely redirecting to verified partner store with Kifayro affiliate transparency.',
+  title: 'Redirecting to Merchant Store | Kifayro',
+  description: 'Safely redirecting to verified merchant destination with transparent outbound tracking disclosures.',
   robots: {
     index: false,
     follow: false,
@@ -57,9 +57,10 @@ export default async function OutboundRedirectPage({
           <ShieldCheck className="w-8 h-8" />
         </div>
 
+        {/* Outbound Destination Badge */}
         <div className="space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full">
-            Verified Partner Store
+          <span className="text-xs font-bold uppercase tracking-wider text-teal-800 bg-teal-50 border border-teal-200/80 px-3 py-1 rounded-full">
+            Direct Merchant Destination
           </span>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight pt-1">
             Taking You to {target.storeName}
@@ -75,21 +76,21 @@ export default async function OutboundRedirectPage({
           storeName={target.storeName}
         />
 
-        {/* Affiliate Disclosure Box */}
+        {/* Truthful Destination & Tracking Notice */}
         <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-left text-xs text-slate-600 space-y-2">
           <div className="flex items-center gap-1.5 font-bold text-slate-800">
             <ShieldCheck className="w-4 h-4 text-teal-600" />
-            Affiliate Transparency Notice
+            Outbound Link & Tracking Status
           </div>
           <p className="leading-relaxed text-[11px] text-slate-500">
-            Kifayro may earn a commission when you purchase through eligible links, at no additional cost to you. Product pricing, stock availability, and promotional terms are managed directly by {target.storeName}.
+            You are navigating directly to <strong>{target.storeName}</strong>. In our current platform preview mode, this link is a standard direct merchant URL with <strong>no active affiliate tracking or referral commission</strong>. All orders, terms, and customer support are handled directly by {target.storeName}.
           </p>
           <div className="text-[11px] pt-1">
             <Link
               href="/affiliate-disclosure"
               className="text-teal-700 hover:text-teal-900 underline font-medium"
             >
-              Read full affiliate policy
+              Learn about our affiliate onboarding roadmap
             </Link>
           </div>
         </div>

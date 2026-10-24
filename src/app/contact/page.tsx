@@ -28,30 +28,43 @@ export default function ContactPage() {
         {/* Left: Contact Info */}
         <div className="md:col-span-5 space-y-6">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-2xs space-y-5">
-            <h2 className="font-bold text-base text-slate-900">Direct Inquiries</h2>
+            <h2 className="font-bold text-base text-slate-900">Contact Channels</h2>
 
             <div className="space-y-4 text-xs text-slate-600">
               <div className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-slate-900">General Support & Tips:</div>
-                  <div className="text-slate-500 font-mono">support@kifayro.com</div>
+                  <div className="font-bold text-slate-900">Custom Domain Inboxes:</div>
+                  <div className="text-slate-500 font-mono">support@kifayro.com (Setup Pending)</div>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Domain mail server and MX records are currently pending configuration.
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
                 <MessageSquare className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-slate-900">Editorial & Review Desk:</div>
-                  <div className="text-slate-500 font-mono">editorial@kifayro.com</div>
+                  <div className="font-bold text-slate-900">Public Feedback & Issue Tracker:</div>
+                  <a
+                    href="https://github.com/dhairya1993/kifayro/issues"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-teal-700 underline font-medium hover:text-teal-900"
+                  >
+                    github.com/dhairya1993/kifayro/issues
+                  </a>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Submit bug reports, price corrections, and feature requests directly to the repository.
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
                 <ShieldCheck className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-slate-900">Affiliate & Partnerships:</div>
-                  <div className="text-slate-500 font-mono">affiliates@kifayro.com</div>
+                  <div className="font-bold text-slate-900">Affiliate & Partner Inquiries:</div>
+                  <div className="text-slate-500 font-mono">affiliates@kifayro.com (Setup Pending)</div>
                 </div>
               </div>
             </div>
@@ -60,7 +73,7 @@ export default function ContactPage() {
           <div className="p-4 bg-teal-50/70 border border-teal-200/80 rounded-2xl text-xs text-teal-900 space-y-1">
             <div className="font-bold">Deal Correction Policy</div>
             <p className="leading-relaxed">
-              If a price on a merchant site changes before our automated verification updates, please send the link and our team will re-verify it within 2 hours.
+              During preview mode, benchmark corrections and suggested store additions are logged and integrated in periodic repository updates.
             </p>
           </div>
         </div>

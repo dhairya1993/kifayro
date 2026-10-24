@@ -24,15 +24,15 @@ export default function EditorialPolicyPage() {
 
       <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-2xs space-y-6 text-sm text-slate-700 leading-relaxed">
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-slate-900">1. Deal Verification Standard</h2>
+          <h2 className="text-lg font-bold text-slate-900">1. Deal Verification Standard (Production Architecture)</h2>
           <p>
-            We do not automatically scrape and publish unvetted price feeds. Before an offer receives a &ldquo;Verified Deal&rdquo; badge on Kifayro, our team verifies:
+            During platform preview, deals and comparison entries serve as architectural benchmarks. Once live automated verification is enabled, before any offer receives verified status on Kifayro, the verification protocol confirms:
           </p>
           <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-600 pl-2">
-            <li>That the current price is genuinely lower than the typical 90-day selling price.</li>
-            <li>That the merchant seller is an authorized distributor or has a rating higher than 85%.</li>
-            <li>That any advertised bank offer or instant coupon actually applies at checkout.</li>
-            <li>That the product is in stock and ready for dispatch.</li>
+            <li>That the current price is lower than the typical 90-day baseline price.</li>
+            <li>That the merchant seller is an authorized distributor or maintains high merchant standing.</li>
+            <li>That advertised bank offers or instant coupons actually apply at checkout.</li>
+            <li>That the product is in stock and available for delivery.</li>
           </ul>
         </section>
 

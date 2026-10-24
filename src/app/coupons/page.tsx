@@ -9,9 +9,9 @@ import { Ticket, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Verified Coupons & Promo Codes in India | Kifayro',
+  title: 'Indian Store Coupons & Promo Vouchers (Preview) | Kifayro',
   description:
-    'Find working coupon codes, bank promo vouchers, and app discounts for Amazon India, Flipkart, Myntra, Croma, and Nykaa with tested checkout validity.',
+    'Sample promo vouchers, discount codes, and qualification terms for Amazon India, Flipkart, Myntra, Croma, and Nykaa on Kifayro.',
 };
 
 export default async function CouponsPage() {
@@ -27,13 +27,13 @@ export default async function CouponsPage() {
       <div className="space-y-2">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200">
           <ShieldCheck className="w-4 h-4 text-teal-600" />
-          Verified Against Real Indian Merchant Checkouts
+          Coupon Architecture & Sample Vouchers
         </div>
         <h1 className="text-3xl font-black text-slate-900 tracking-tight">
-          Verified Indian Coupons & Promo Codes
+          Indian Store Coupons & Promo Vouchers (Preview)
         </h1>
         <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
-          Skip the frustrating expired codes. Every voucher code on Kifayro includes transparent qualifying terms, minimum spend rules, and explicit expiration dates.
+          Sample voucher formats illustrating qualifying terms, minimum spend thresholds, and promotional structures across top Indian retailers. Live checkout-tested coupons will be enabled as partner programs activate.
         </p>
       </div>
 
