@@ -3,7 +3,6 @@ import { dataAdapter } from '@/lib/data-adapter';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kifayro.vercel.app';
-  const buildDate = new Date('2026-10-25T10:00:00.000Z');
 
   const [products, deals, categories, stores, articles] = await Promise.all([
     dataAdapter.getProducts(),
@@ -13,28 +12,41 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     dataAdapter.getArticles(),
   ]);
 
-  const staticRoutes: MetadataRoute.Sitemap = [
-    '',
-    '/deals',
-    '/categories',
-    '/coupons',
-    '/stores',
-    '/compare',
-    '/blog',
-    '/about',
-    '/contact',
-    '/how-it-works',
-    '/affiliate-disclosure',
-    '/editorial-policy',
-    '/privacy-policy',
-    '/terms',
-    '/disclaimer',
-  ].map((route) => ({
-    url: `${siteUrl}${route}`,
-    lastModified: buildDate,
-    changeFrequency: route === '' || route === '/deals' ? 'daily' : 'weekly',
-    priority: route === '' ? 1.0 : route === '/deals' || route === '/compare' ? 0.9 : 0.7,
-  }));
+  // Meaningful content revision timestamps reflecting actual updates
+  const legalUpdateDate = new Date('2026-10-23T00:00:00.000Z');
+  const editorialReviewDate = new Date('2026-10-24T00:00:00.000Z');
+  const catalogueStructureDate = new Date('2026-10-25T00:00:00.000Z');
+
+  // Most recent article publication timestamp for blog index and homepage
+  const latestArticleDate = articles.length > 0
+    ? new Date(Math.max(...articles.map((a) => new Date(a.publishedAt).getTime())))
+    : editorialReviewDate;
+
+  // Specific content-driven timestamps for each static route
+  const staticRouteDates: Record<string, Date> = {
+    '': latestArticleDate,
+    '/blog': latestArticleDate,
+    '/deals': catalogueStructureDate,
+    '/compare': catalogueStructureDate,
+    '/coupons': catalogueStructureDate,
+    '/categories': catalogueStructureDate,
+    '/stores': catalogueStructureDate,
+    '/about': editorialReviewDate,
+    '/how-it-works': editorialReviewDate,
+    '/affiliate-disclosure': editorialReviewDate,
+    '/editorial-policy': editorialReviewDate,
+    '/contact': editorialReviewDate,
+    '/privacy-policy': legalUpdateDate,
+    '/terms': legalUpdateDate,
+    '/disclaimer': legalUpdateDate,
+  };
+
+  const staticRoutes: MetadataRoute.Sitemap = Object.entries(staticRouteDates).map(
+    ([route, lastModified]) => ({
+      url: `${siteUrl}${route}`,
+      lastModified,
+    })
+  );
 
   // Exclude demo-only products and demo deals from public sitemap indexation
   const liveProducts = products.filter((p) => !p.isDemoData);
@@ -43,36 +55,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const productRoutes: MetadataRoute.Sitemap = liveProducts.map((p) => ({
     url: `${siteUrl}/product/${p.slug}`,
     lastModified: new Date(p.lastVerifiedAt),
-    changeFrequency: 'daily',
-    priority: 0.8,
   }));
 
   const dealRoutes: MetadataRoute.Sitemap = liveDeals.map((d) => ({
     url: `${siteUrl}/deal/${d.slug}`,
     lastModified: new Date(d.lastVerifiedAt),
-    changeFrequency: 'daily',
-    priority: 0.8,
   }));
 
   const categoryRoutes: MetadataRoute.Sitemap = categories.map((c) => ({
     url: `${siteUrl}/categories/${c.slug}`,
-    lastModified: buildDate,
-    changeFrequency: 'weekly',
-    priority: 0.8,
+    lastModified: catalogueStructureDate,
   }));
 
   const storeRoutes: MetadataRoute.Sitemap = stores.map((s) => ({
     url: `${siteUrl}/stores/${s.slug}`,
-    lastModified: buildDate,
-    changeFrequency: 'weekly',
-    priority: 0.7,
+    lastModified: catalogueStructureDate,
   }));
 
   const articleRoutes: MetadataRoute.Sitemap = articles.map((a) => ({
     url: `${siteUrl}/blog/${a.slug}`,
     lastModified: new Date(a.publishedAt),
-    changeFrequency: 'monthly',
-    priority: 0.7,
   }));
 
   return [

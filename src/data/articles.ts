@@ -594,7 +594,7 @@ Online trade-in programs allow you to exchange an older smartphone or laptop for
 
 Before finalizing any purchase across competing retailers, apply this uniform calculation:
 
-$$\\text{Net Landed Cost} = \\text{Base Cart Price} + \\text{Delivery \\& Handling Fees} - \\text{Capped Bank Cut} - \\text{Applicable Verified Coupons}$$
+> **Net Landed Cost = Base Cart Price + Delivery & Handling Fees - Capped Bank Discount - Applicable Verified Coupons**
 
 Compare the calculated Net Landed Cost across stores. The store with the lowest final rupee figure—not the store with the flashiest percentage discount badge—is the true winner.
 

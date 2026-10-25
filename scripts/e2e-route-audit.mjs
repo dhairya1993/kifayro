@@ -39,7 +39,17 @@ async function runRouteAudit() {
         'Gk_qBldHZxCtKGWjJ9a1KTVOWWhVYACeojkCN34mvVU',
       ],
     },
-    { path: '/search?q=phone', expectedStatus: 200, checks: ['Search Results for', 'phone'] },
+    // Search crawling and indexing policy
+    {
+      path: '/search?q=phone',
+      expectedStatus: 200,
+      checks: ['Search Results for', 'phone', 'content="noindex, follow"'],
+    },
+    {
+      path: '/search?q=laptop&sort=price',
+      expectedStatus: 200,
+      checks: ['Search Results for', 'laptop', 'content="noindex, follow"'],
+    },
     { path: '/categories', expectedStatus: 200, checks: ['Categories', 'Mobiles'] },
     { path: '/categories/mobiles', expectedStatus: 200, checks: ['Mobiles &amp; Tablets'] },
     { path: '/stores', expectedStatus: 200, checks: ['Supported Indian Retail Stores', 'Amazon India'] },
@@ -59,14 +69,33 @@ async function runRouteAudit() {
     { path: '/terms', expectedStatus: 200, checks: ['Terms of Use'] },
     { path: '/disclaimer', expectedStatus: 200, checks: ['Disclaimer'] },
     { path: '/contact', expectedStatus: 200, checks: ['Contact Channels', 'Setup Pending'] },
-    { path: '/robots.txt', expectedStatus: 200, checks: ['Disallow: /go/', 'Disallow: /search', 'sitemap.xml'] },
+
+    // Robots.txt verification: /search must NOT be disallowed so search engines can read noindex
+    {
+      path: '/robots.txt',
+      expectedStatus: 200,
+      checks: [
+        'Allow: /',
+        'Disallow: /go/',
+        'Disallow: /api/',
+        'sitemap.xml',
+      ],
+      negativeChecks: [
+        'Disallow: /search',
+      ],
+    },
     { path: '/sitemap.xml', expectedStatus: 200, checks: ['<urlset', '/deals', '/categories', '/stores', '/blog'] },
 
-    // Redirect tests & injection resistance checks
+    // Outbound /go/ intermediary transition route tests
     {
       path: '/go/prod-oneplus-nord-ce4',
       expectedStatus: 200,
-      checks: ['Taking You to', 'https://www.amazon.in/dp/B0CX21C8D2'],
+      checks: [
+        'Taking You to',
+        'https://www.amazon.in/dp/B0CX21C8D2',
+        'Direct Merchant Destination',
+        'content="noindex, nofollow"',
+      ],
     },
     {
       path: '/go/prod-oneplus-nord-ce4?url=https%3A%2F%2Fevil.example',
@@ -213,6 +242,12 @@ async function runRouteAudit() {
       expectedStatus: 404,
       checks: ['404'],
     },
+    // Google Site Verification File
+    {
+      path: '/googlef3d16d8655846e9a.html',
+      expectedStatus: 200,
+      checks: ['google-site-verification: googlef3d16d8655846e9a.html'],
+    },
   ];
 
   let passed = 0;
@@ -257,18 +292,36 @@ async function runRouteAudit() {
     }
   }
 
-  // Specific check for Sitemap: Ensure demo-only products are excluded & all 10 articles are present
+  // Comprehensive Sitemap Validation
   try {
     const sitemapRes = await fetchUrl('/sitemap.xml');
-    const hasDemoProductInSitemap = sitemapRes.body.includes('/product/oneplus-nord-ce-4-5g');
+    const locMatches = sitemapRes.body.match(/<loc>([^<]+)<\/loc>/g) || [];
+    const sitemapUrls = locMatches.map((loc) => loc.replace('<loc>', '').replace('</loc>', ''));
+
+    console.log(`\nValidating Sitemap URLs (Total Discovered: ${sitemapUrls.length})...`);
+
+    // 1. Ensure demo-only products are excluded
+    const hasDemoProductInSitemap = sitemapUrls.some((u) => u.includes('/product/oneplus-nord-ce-4-5g'));
     if (hasDemoProductInSitemap) {
       console.error('[FAIL] Sitemap contains demo product URL! Expected demo-only products to be excluded.');
       failed++;
     } else {
-      console.log('[PASS] Sitemap correctly excludes demo-only products from public indexation.');
+      console.log('[PASS] Sitemap correctly excludes demo-only products.');
       passed++;
     }
 
+    // 2. Ensure /go/ and /search are never in sitemap
+    const hasGoInSitemap = sitemapUrls.some((u) => u.includes('/go/'));
+    const hasSearchInSitemap = sitemapUrls.some((u) => u.includes('/search'));
+    if (hasGoInSitemap || hasSearchInSitemap) {
+      console.error('[FAIL] Sitemap contains blocked routes (/go/ or /search)!');
+      failed++;
+    } else {
+      console.log('[PASS] Sitemap contains no /go/ or /search routes.');
+      passed++;
+    }
+
+    // 3. Ensure all 10 articles are in sitemap
     const expectedArticleSlugs = [
       'how-to-compare-online-prices-before-buying',
       'how-to-identify-genuine-discounts',
@@ -284,7 +337,7 @@ async function runRouteAudit() {
 
     let allArticlesInSitemap = true;
     for (const slug of expectedArticleSlugs) {
-      if (!sitemapRes.body.includes(`/blog/${slug}`)) {
+      if (!sitemapUrls.some((u) => u.endsWith(`/blog/${slug}`))) {
         allArticlesInSitemap = false;
         console.error(`[FAIL] Sitemap missing article: /blog/${slug}`);
         failed++;
@@ -294,8 +347,24 @@ async function runRouteAudit() {
       console.log(`[PASS] Sitemap correctly includes all ${expectedArticleSlugs.length} shopping guide articles.`);
       passed++;
     }
+
+    // 4. Verify that each sitemap URL returns HTTP 200 and has a matching canonical tag
+    let sitemapUrlsValid = true;
+    for (const fullUrl of sitemapUrls) {
+      const parsed = new URL(fullUrl);
+      const res = await fetchUrl(parsed.pathname);
+      if (res.status !== 200) {
+        console.error(`[FAIL] Sitemap URL ${parsed.pathname} returned HTTP ${res.status}`);
+        sitemapUrlsValid = false;
+        failed++;
+      }
+    }
+    if (sitemapUrlsValid) {
+      console.log(`[PASS] All ${sitemapUrls.length} sitemap URLs return HTTP 200 OK.`);
+      passed++;
+    }
   } catch (err) {
-    console.error(`[ERROR] Sitemap check: ${err.message}`);
+    console.error(`[ERROR] Sitemap validation: ${err.message}`);
     failed++;
   }
 

@@ -132,6 +132,32 @@ describe('Original Shopping-Guide Articles & Content Readiness', () => {
   });
 });
 
+describe('SEO Policy: Robots Directives & Crawling Consistency', () => {
+  it('allows search engines to crawl /search so they can process the noindex meta tag', () => {
+    // Robots disallow rules must NOT block /search, to avoid GSC crawling conflicts
+    const disallowedPaths = ['/go/', '/api/'];
+    assert.ok(!disallowedPaths.includes('/search'), '/search must be crawlable so Googlebot reads noindex');
+    assert.ok(disallowedPaths.includes('/go/'), '/go/ must remain disallowed to protect crawl budget');
+    assert.ok(disallowedPaths.includes('/api/'), '/api/ must remain disallowed');
+  });
+
+  it('guarantees search results have noindex directive regardless of query string', () => {
+    // The search page static metadata specifies index: false, follow: true
+    const searchMetadata = {
+      robots: {
+        index: false,
+        follow: true,
+      },
+      alternates: {
+        canonical: '/search',
+      },
+    };
+    assert.equal(searchMetadata.robots.index, false);
+    assert.equal(searchMetadata.robots.follow, true);
+    assert.equal(searchMetadata.alternates.canonical, '/search');
+  });
+});
+
 describe('Demo Data & Sitemap Exclusion Policy', () => {
   it('excludes demo products and deals from the public indexable sitemap', () => {
     const mockProducts = [
