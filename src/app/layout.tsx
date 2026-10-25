@@ -65,6 +65,9 @@ export const metadata: Metadata = {
     title: 'Kifayro — Smart Shopping Discovery India',
     description: 'Find better deals, compare prices across Indian stores, and save smarter.',
   },
+  verification: {
+    google: 'Gk_qBldHZxCtKGWjJ9a1KTVOWWhVYACeojkCN34mvVU',
+  },
 };
 
 export const viewport: Viewport = {

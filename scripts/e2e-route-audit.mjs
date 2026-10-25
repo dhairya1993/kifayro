@@ -28,7 +28,17 @@ async function runRouteAudit() {
   console.log(`--- Starting Comprehensive Kifayro Route, Interaction & SEO Content Audit (${BASE_URL}) ---`);
 
   const testCases = [
-    { path: '/', expectedStatus: 200, checks: ['Platform Preview', 'Kifayro', 'rel="canonical"'] },
+    {
+      path: '/',
+      expectedStatus: 200,
+      checks: [
+        'Platform Preview',
+        'Kifayro',
+        'rel="canonical"',
+        'google-site-verification',
+        'Gk_qBldHZxCtKGWjJ9a1KTVOWWhVYACeojkCN34mvVU',
+      ],
+    },
     { path: '/search?q=phone', expectedStatus: 200, checks: ['Search Results for', 'phone'] },
     { path: '/categories', expectedStatus: 200, checks: ['Categories', 'Mobiles'] },
     { path: '/categories/mobiles', expectedStatus: 200, checks: ['Mobiles &amp; Tablets'] },
