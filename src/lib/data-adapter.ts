@@ -79,42 +79,12 @@ export interface IDataSourceAdapter {
   } | null>;
 }
 
-const ALLOWED_DESTINATION_HOSTS = new Set([
-  'amazon.in',
-  'www.amazon.in',
-  'amzn.to',
-  'amzn.in',
-  'flipkart.com',
-  'www.flipkart.com',
-  'dl.flipkart.com',
-  'croma.com',
-  'www.croma.com',
-  'reliancedigital.in',
-  'www.reliancedigital.in',
-  'tatacliq.com',
-  'www.tatacliq.com',
-  'myntra.com',
-  'www.myntra.com',
-  'nykaa.com',
-  'www.nykaa.com',
-  'ajio.com',
-  'www.ajio.com',
-  'vijaysales.com',
-  'www.vijaysales.com',
-]);
+import {
+  ALLOWED_DESTINATION_HOSTS,
+  isAllowedDestinationUrl,
+} from './url-validator';
 
-function isAllowedDestinationUrl(rawUrl: string): boolean {
-  try {
-    const parsed = new URL(rawUrl);
-    if (parsed.protocol !== 'https:') {
-      return false;
-    }
-    const hostname = parsed.hostname.toLowerCase();
-    return ALLOWED_DESTINATION_HOSTS.has(hostname);
-  } catch {
-    return false;
-  }
-}
+export { ALLOWED_DESTINATION_HOSTS, isAllowedDestinationUrl };
 
 /**
  * Local Data Source Adapter

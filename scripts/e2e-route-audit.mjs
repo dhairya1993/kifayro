@@ -1,23 +1,31 @@
 import http from 'node:http';
+import https from 'node:https';
+
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
 function fetchUrl(path) {
+  const url = new URL(path, BASE_URL);
+  const client = url.protocol === 'https:' ? https : http;
+
   return new Promise((resolve, reject) => {
-    http.get(`http://localhost:3000${path}`, (res) => {
-      let data = '';
-      res.on('data', (chunk) => {
-        data += chunk;
+    client
+      .get(url.toString(), (res) => {
+        let data = '';
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+        res.on('end', () => {
+          resolve({ status: res.statusCode, headers: res.headers, body: data });
+        });
+      })
+      .on('error', (err) => {
+        reject(err);
       });
-      res.on('end', () => {
-        resolve({ status: res.statusCode, headers: res.headers, body: data });
-      });
-    }).on('error', (err) => {
-      reject(err);
-    });
   });
 }
 
 async function runRouteAudit() {
-  console.log('--- Starting Comprehensive Kifayro Route & Interaction Audit ---');
+  console.log(`--- Starting Comprehensive Kifayro Route & Interaction Audit (${BASE_URL}) ---`);
 
   const testCases = [
     { path: '/', expectedStatus: 200, checks: ['Platform Preview', 'Kifayro'] },
@@ -43,8 +51,47 @@ async function runRouteAudit() {
     { path: '/contact', expectedStatus: 200, checks: ['Contact Channels', 'Setup Pending'] },
     { path: '/robots.txt', expectedStatus: 200, checks: ['Disallow: /go/', 'Disallow: /search'] },
     { path: '/sitemap.xml', expectedStatus: 200, checks: ['<urlset', '/deals', '/categories', '/stores'] },
-    { path: '/go/prod-oneplus-nord-ce4', expectedStatus: 200, checks: ['Taking You to', 'Direct Merchant Destination'] },
-    { path: '/go/non-existent-random-target-id', expectedStatus: 200, checks: ['Unrecognized or Expired Link', 'Return to Kifayro Home'] },
+
+    // Redirect tests & injection resistance checks
+    {
+      path: '/go/prod-oneplus-nord-ce4',
+      expectedStatus: 200,
+      checks: ['Taking You to', 'https://www.amazon.in/dp/B0CX21C8D2'],
+    },
+    {
+      path: '/go/prod-oneplus-nord-ce4?url=https%3A%2F%2Fevil.example',
+      expectedStatus: 200,
+      checks: [
+        'Taking You to',
+        'https://www.amazon.in/dp/B0CX21C8D2', // Server-defined target remains completely intact
+      ],
+      negativeChecks: [
+        'https://evil.example',
+        'href="https://evil.example',
+        '"destinationUrl":"https://evil.example',
+      ],
+    },
+    {
+      path: '/go/non-existent-random-target-id',
+      expectedStatus: 404,
+      checks: ['404'],
+      negativeChecks: [
+        'Taking You to',
+        'Direct Merchant Destination',
+      ],
+    },
+    {
+      path: '/go/non-existent-random-target-id?url=https%3A%2F%2Fevil.example',
+      expectedStatus: 404,
+      checks: ['404'],
+      negativeChecks: [
+        'https://evil.example',
+        'href="https://evil.example',
+        '"destinationUrl":"https://evil.example',
+        'Taking You to',
+        'Direct Merchant Destination',
+      ],
+    },
   ];
 
   let passed = 0;
@@ -56,11 +103,19 @@ async function runRouteAudit() {
       const statusOk = res.status === tc.expectedStatus;
       let contentOk = true;
       const missingChecks = [];
+      const unwantedFound = [];
 
-      for (const check of tc.checks) {
+      for (const check of tc.checks || []) {
         if (!res.body.includes(check)) {
           contentOk = false;
           missingChecks.push(check);
+        }
+      }
+
+      for (const unwanted of tc.negativeChecks || []) {
+        if (res.body.includes(unwanted)) {
+          contentOk = false;
+          unwantedFound.push(unwanted);
         }
       }
 
@@ -68,7 +123,11 @@ async function runRouteAudit() {
         console.log(`[PASS] ${tc.path} (HTTP ${res.status})`);
         passed++;
       } else {
-        console.error(`[FAIL] ${tc.path}: status=${res.status} (expected ${tc.expectedStatus}), missing=[${missingChecks.join(', ')}]`);
+        const failureDetails = [];
+        if (!statusOk) failureDetails.push(`status=${res.status} (expected ${tc.expectedStatus})`);
+        if (missingChecks.length) failureDetails.push(`missing=[${missingChecks.join(', ')}]`);
+        if (unwantedFound.length) failureDetails.push(`unwanted_found=[${unwantedFound.join(', ')}]`);
+        console.error(`[FAIL] ${tc.path}: ${failureDetails.join('; ')}`);
         failed++;
       }
     } catch (err) {
@@ -78,14 +137,19 @@ async function runRouteAudit() {
   }
 
   // Specific check for Sitemap: Ensure demo-only products are excluded
-  const sitemapRes = await fetchUrl('/sitemap.xml');
-  const hasDemoProductInSitemap = sitemapRes.body.includes('/product/oneplus-nord-ce-4-5g');
-  if (hasDemoProductInSitemap) {
-    console.error('[FAIL] Sitemap contains demo product URL! Expected demo-only products to be excluded.');
+  try {
+    const sitemapRes = await fetchUrl('/sitemap.xml');
+    const hasDemoProductInSitemap = sitemapRes.body.includes('/product/oneplus-nord-ce-4-5g');
+    if (hasDemoProductInSitemap) {
+      console.error('[FAIL] Sitemap contains demo product URL! Expected demo-only products to be excluded.');
+      failed++;
+    } else {
+      console.log('[PASS] Sitemap correctly excludes demo-only products from public indexation.');
+      passed++;
+    }
+  } catch (err) {
+    console.error(`[ERROR] Sitemap check: ${err.message}`);
     failed++;
-  } else {
-    console.log('[PASS] Sitemap correctly excludes demo-only products from public indexation.');
-    passed++;
   }
 
   console.log(`\nAudit Route Summary: ${passed} Passed, ${failed} Failed.`);

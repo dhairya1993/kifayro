@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { dataAdapter } from '@/lib/data-adapter';
-import { ShieldCheck, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { OutboundRedirectClient } from './OutboundRedirectClient';
 import { Metadata } from 'next';
 
@@ -23,30 +24,7 @@ export default async function OutboundRedirectPage({
   const target = await dataAdapter.resolveOutboundTarget(id);
 
   if (!target) {
-    return (
-      <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
-        <div className="max-w-md w-full bg-white border border-rose-200 rounded-2xl p-8 text-center shadow-lg space-y-4">
-          <div className="w-12 h-12 bg-rose-100 text-rose-700 rounded-full flex items-center justify-center mx-auto">
-            <AlertTriangle className="w-6 h-6" />
-          </div>
-          <h1 className="text-xl font-bold text-slate-900">
-            Unrecognized or Expired Link
-          </h1>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            For your security, Kifayro strictly prevents open redirects and never routes visitors to unknown external websites. Destination ID <code className="bg-slate-100 px-1 py-0.5 rounded text-rose-600 font-mono font-semibold">{id}</code> could not be validated against our server registry.
-          </p>
-          <div className="pt-2">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Return to Kifayro Home
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   return (
