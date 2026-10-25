@@ -11,6 +11,16 @@ export const metadata: Metadata = {
   title: 'Supported Indian Online Stores | Kifayro',
   description:
     'Directory of supported Indian e-commerce merchants and affiliate networks: Amazon India, Flipkart, Croma, Reliance Digital, Myntra, Tata CLiQ, and Nykaa.',
+  alternates: {
+    canonical: '/stores',
+  },
+  openGraph: {
+    title: 'Supported Indian Online Stores | Kifayro',
+    description:
+      'Directory of supported Indian e-commerce merchants and affiliate networks on Kifayro.',
+    url: 'https://kifayro.vercel.app/stores',
+    type: 'website',
+  },
 };
 
 export default async function StoresPage() {

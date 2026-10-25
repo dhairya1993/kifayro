@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { dataAdapter } from '@/lib/data-adapter';
 import { SearchBar } from '@/components/search/SearchBar';
 import { DealCard } from '@/components/deals/DealCard';
@@ -16,6 +17,23 @@ import {
   Ticket,
   BookOpen,
 } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Kifayro — Discover Deals. Compare Prices. Save Smarter.',
+  description:
+    'India’s smart shopping discovery & benchmark price comparison platform. Explore benchmark price checks, store coupons, and curated shopping guides.',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Kifayro — Discover Deals. Compare Prices. Save Smarter.',
+    description:
+      'India’s smart shopping discovery & benchmark price comparison platform for Indian online shoppers.',
+    url: 'https://kifayro.vercel.app',
+    type: 'website',
+    siteName: 'Kifayro',
+  },
+};
 
 export default async function HomePage() {
   const [categories, trendingDeals, products, coupons, articles] = await Promise.all([

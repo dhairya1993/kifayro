@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'Privacy Policy | Kifayro',
   description:
     'Our privacy policy explaining how Kifayro handles data with respect to Indian privacy principles (DPDP Act).',
+  alternates: {
+    canonical: '/privacy-policy',
+  },
+  openGraph: {
+    title: 'Privacy Policy | Kifayro',
+    description:
+      'Our privacy policy explaining how Kifayro handles data with respect to Indian privacy principles (DPDP Act).',
+    url: 'https://kifayro.vercel.app/privacy-policy',
+    type: 'website',
+  },
 };
 
 export default function PrivacyPolicyPage() {

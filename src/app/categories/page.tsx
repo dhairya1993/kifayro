@@ -9,7 +9,17 @@ import { ArrowRight } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Categories Directory | Kifayro',
   description:
-    'Explore verified deals, price comparisons, and buying guides by category: Mobiles, Electronics, Laptops, Home Appliances, Fashion, Beauty, and Grocery in India.',
+    'Explore benchmark deals, price comparisons, and buying guides by category: Mobiles, Electronics, Laptops, Home Appliances, Fashion, Beauty, and Grocery in India.',
+  alternates: {
+    canonical: '/categories',
+  },
+  openGraph: {
+    title: 'Categories Directory | Kifayro',
+    description:
+      'Explore benchmark deals, price comparisons, and buying guides by category across Indian online retail.',
+    url: 'https://kifayro.vercel.app/categories',
+    type: 'website',
+  },
 };
 
 export default async function CategoriesPage() {

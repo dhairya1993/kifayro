@@ -9,6 +9,16 @@ export const metadata: Metadata = {
   title: 'About Kifayro — Smarter Online Shopping for India',
   description:
     'Learn about Kifayro’s mission to bring transparency, genuine price verification, and multi-store comparison to Indian online shoppers.',
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    title: 'About Kifayro — Smarter Online Shopping for India',
+    description:
+      'Learn about Kifayro’s mission to bring transparency, benchmark pricing, and multi-store comparison to Indian online shoppers.',
+    url: 'https://kifayro.vercel.app/about',
+    type: 'website',
+  },
 };
 
 export default function AboutPage() {

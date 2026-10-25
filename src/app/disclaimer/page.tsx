@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'Disclaimer | Kifayro',
   description:
     'Legal and pricing disclaimer regarding e-commerce listings, third-party content, and affiliate disclosures on Kifayro.',
+  alternates: {
+    canonical: '/disclaimer',
+  },
+  openGraph: {
+    title: 'Disclaimer | Kifayro',
+    description:
+      'Legal and pricing disclaimer regarding e-commerce listings, third-party content, and affiliate disclosures on Kifayro.',
+    url: 'https://kifayro.vercel.app/disclaimer',
+    type: 'website',
+  },
 };
 
 export default function DisclaimerPage() {

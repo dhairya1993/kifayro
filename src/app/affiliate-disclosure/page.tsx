@@ -7,6 +7,16 @@ export const metadata: Metadata = {
   title: 'Affiliate Transparency Policy & Program Readiness | Kifayro',
   description:
     'Full transparency disclosure regarding Kifayro’s affiliate program readiness, merchant link policy, and commercial independence.',
+  alternates: {
+    canonical: '/affiliate-disclosure',
+  },
+  openGraph: {
+    title: 'Affiliate Transparency Policy & Program Readiness | Kifayro',
+    description:
+      'Transparency disclosure regarding Kifayro’s affiliate program readiness and commercial independence.',
+    url: 'https://kifayro.vercel.app/affiliate-disclosure',
+    type: 'website',
+  },
 };
 
 export default function AffiliateDisclosurePage() {

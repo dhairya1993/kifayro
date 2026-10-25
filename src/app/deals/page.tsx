@@ -10,6 +10,16 @@ export const metadata: Metadata = {
   title: 'Indian Deals & Offers (Preview) | Kifayro',
   description:
     'Browse sample discounts, price drops, and promotional offers across top Indian e-commerce stores on Kifayro.',
+  alternates: {
+    canonical: '/deals',
+  },
+  openGraph: {
+    title: 'Indian Deals & Offers (Preview) | Kifayro',
+    description:
+      'Browse sample discounts, price drops, and promotional offers across top Indian e-commerce stores on Kifayro.',
+    url: 'https://kifayro.vercel.app/deals',
+    type: 'website',
+  },
 };
 
 export default async function DealsPage({

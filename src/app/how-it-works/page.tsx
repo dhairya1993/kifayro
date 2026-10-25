@@ -8,7 +8,17 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'How Kifayro Works — Deal Verification & Comparison',
   description:
-    'Discover how Kifayro indexes products, verifies real street prices, compares SKUs across Indian stores, and sustains itself through transparent affiliate links.',
+    'Discover how Kifayro indexes products, tracks price benchmarks, compares SKUs across Indian stores, and sustains itself through transparent affiliate links.',
+  alternates: {
+    canonical: '/how-it-works',
+  },
+  openGraph: {
+    title: 'How Kifayro Works — Deal Verification & Comparison',
+    description:
+      'Discover how Kifayro indexes products, tracks price benchmarks, and compares SKUs across Indian stores.',
+    url: 'https://kifayro.vercel.app/how-it-works',
+    type: 'website',
+  },
 };
 
 export default function HowItWorksPage() {

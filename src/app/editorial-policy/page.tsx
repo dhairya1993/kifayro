@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   title: 'Editorial Policy & Verification Standards | Kifayro',
   description:
     'Our methodology for verifying discounts, comparing product SKUs, and maintaining independence from retailer influence.',
+  alternates: {
+    canonical: '/editorial-policy',
+  },
+  openGraph: {
+    title: 'Editorial Policy & Verification Standards | Kifayro',
+    description:
+      'Our methodology for tracking price benchmarks, comparing product SKUs, and maintaining editorial independence.',
+    url: 'https://kifayro.vercel.app/editorial-policy',
+    type: 'website',
+  },
 };
 
 export default function EditorialPolicyPage() {

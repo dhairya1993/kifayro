@@ -10,14 +10,55 @@ import { AffiliateDisclosureNotice } from '@/components/ui/AffiliateDisclosureNo
 export const metadata: Metadata = {
   title: 'Smart Shopping Guides & Consumer Advice | Kifayro',
   description:
-    'Original, research-backed guides on how to spot fake festive discounts, understand instant bank discounts, and buy tech smartly in India.',
+    'Research-backed shopping and buying guides on comparing online prices, spotting inflated MRP discounts, evaluating smartphone and laptop specs, and shopping safely in India.',
+  alternates: {
+    canonical: '/blog',
+  },
+  openGraph: {
+    title: 'Smart Shopping Guides & Consumer Advice | Kifayro',
+    description:
+      'Research-backed shopping and buying guides on comparing online prices, spotting inflated MRP discounts, evaluating smartphone and laptop specs, and shopping safely in India.',
+    url: 'https://kifayro.vercel.app/blog',
+    type: 'website',
+    siteName: 'Kifayro',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Smart Shopping Guides & Consumer Advice | Kifayro',
+    description:
+      'Research-backed shopping and buying guides on comparing online prices, spotting inflated MRP discounts, and shopping safely in India.',
+  },
 };
 
 export default async function BlogPage() {
   const articles = await dataAdapter.getArticles();
 
+  // Schema.org CollectionPage & BreadcrumbList
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Smart Shopping & Buying Guides | Kifayro',
+    description:
+      'Original consumer guides and buying frameworks for Indian online shoppers.',
+    url: 'https://kifayro.vercel.app/blog',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: articles.map((article, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `https://kifayro.vercel.app/blog/${article.slug}`,
+        name: article.title,
+      })),
+    },
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <Breadcrumbs items={[{ label: 'Shopping Guides' }]} />
 
       <div className="space-y-3">
@@ -26,10 +67,10 @@ export default async function BlogPage() {
           Independent Editorial Insights
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-          Smart Shopping & Buying Guides
+          Smart Shopping &amp; Buying Guides
         </h1>
         <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
-          Arm yourself with practical knowledge before spending your hard-earned rupees. Our articles break down deceptive festive marketing, payment fine print, and honest tech specs.
+          Practical knowledge and calculation frameworks to help you navigate Indian e-commerce. Our guides break down deceptive festive marketing, payment fine print, spec comparisons, and warranty rules.
         </p>
       </div>
 
@@ -41,7 +82,7 @@ export default async function BlogPage() {
           >
             <div>
               <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
-                <span className="font-bold text-teal-800 bg-teal-50 px-2.5 py-0.5 rounded-full">
+                <span className="font-bold text-teal-800 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-100">
                   {article.category}
                 </span>
                 <span className="flex items-center gap-1">
@@ -56,7 +97,7 @@ export default async function BlogPage() {
                 </Link>
               </h2>
 
-              <p className="text-xs text-slate-600 mt-2.5 leading-relaxed">
+              <p className="text-xs text-slate-600 mt-2.5 leading-relaxed line-clamp-3">
                 {article.excerpt}
               </p>
 

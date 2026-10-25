@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { isAllowedDestinationUrl, ALLOWED_DESTINATION_HOSTS } from '../src/lib/url-validator.ts';
+import { articles } from '../src/data/articles.ts';
 
 // Test redirect allowlist and target security using production validator
 describe('Affiliate Redirect Security & Hostname Allowlist', () => {
@@ -70,6 +71,64 @@ describe('Affiliate Redirect Security & Hostname Allowlist', () => {
     assert.equal(isAllowedDestinationUrl(undefined), false);
     assert.equal(isAllowedDestinationUrl({}), false);
     assert.equal(isAllowedDestinationUrl(123), false);
+  });
+});
+
+describe('Original Shopping-Guide Articles & Content Readiness', () => {
+  const EXPECTED_SLUGS = [
+    'how-to-compare-online-prices-before-buying',
+    'how-to-identify-genuine-discounts',
+    'coupon-codes-vs-cashback-what-is-the-difference',
+    'how-to-choose-a-smartphone-within-your-budget',
+    'what-to-check-before-buying-a-laptop',
+    'how-to-compare-product-specifications',
+    'how-to-recognize-fake-shopping-websites',
+    'how-to-shop-safely-during-major-sale-events',
+    'how-to-understand-product-warranty-and-return-policies',
+    'how-to-compare-online-offers-without-being-misled-by-the-listed-discount',
+  ];
+
+  it('provides exactly the 10 approved original shopping guide topics', () => {
+    assert.equal(articles.length, 10, 'Must have exactly 10 comprehensive shopping guides');
+    const slugs = articles.map((a) => a.slug);
+    for (const expectedSlug of EXPECTED_SLUGS) {
+      assert.ok(slugs.includes(expectedSlug), `Missing expected article topic slug: ${expectedSlug}`);
+    }
+  });
+
+  it('ensures every article possesses required editorial structure and valid metadata', () => {
+    const slugSet = new Set();
+    for (const article of articles) {
+      assert.ok(article.id && article.id.startsWith('art-'), `Article ${article.id} must have valid id`);
+      assert.ok(article.title && article.title.length >= 15, `Article ${article.slug} must have substantive title`);
+      assert.ok(article.excerpt && article.excerpt.length >= 50, `Article ${article.slug} must have informative excerpt`);
+      assert.ok(article.readingTime && article.readingTime.includes('min read'), `Article ${article.slug} reading time`);
+      assert.ok(article.publishedAt && !isNaN(Date.parse(article.publishedAt)), `Article ${article.slug} valid date`);
+      assert.ok(article.author && article.author.name && article.author.role, `Article ${article.slug} author attribution`);
+      assert.ok(article.tags && article.tags.length >= 2, `Article ${article.slug} tags`);
+      assert.ok(article.keyTakeaways && article.keyTakeaways.length >= 3, `Article ${article.slug} key takeaways`);
+      assert.ok(article.content && article.content.length > 500, `Article ${article.slug} must have in-depth content`);
+      assert.ok(article.content.includes('## '), `Article ${article.slug} must have structured ## headings`);
+
+      // Ensure no duplicate slugs
+      assert.ok(!slugSet.has(article.slug), `Duplicate slug detected: ${article.slug}`);
+      slugSet.add(article.slug);
+    }
+  });
+
+  it('ensures articles contain practical guidance and official policy verification checkpoints', () => {
+    for (const article of articles) {
+      // Must contain merchant/official checkpoint or verification guidance
+      const hasVerificationGuidance =
+        article.content.includes('Checkpoint') ||
+        article.content.includes('Verification') ||
+        article.content.includes('official') ||
+        article.content.includes('terms');
+      assert.ok(
+        hasVerificationGuidance,
+        `Article ${article.slug} must advise readers on checking official merchant terms`
+      );
+    }
   });
 });
 

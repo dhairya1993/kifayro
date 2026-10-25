@@ -9,7 +9,14 @@ import { DemoBanner } from '@/components/ui/DemoBanner';
 export const metadata: Metadata = {
   title: 'Search Deals & Products | Kifayro',
   description:
-    'Search through verified Indian deals, price comparisons, coupons, and stores on Kifayro.',
+    'Search through Indian deals, price comparisons, coupons, and stores on Kifayro.',
+  robots: {
+    index: false,
+    follow: true,
+  },
+  alternates: {
+    canonical: '/search',
+  },
 };
 
 export default async function SearchPage({

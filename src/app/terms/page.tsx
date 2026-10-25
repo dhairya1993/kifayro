@@ -5,6 +5,15 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 export const metadata: Metadata = {
   title: 'Terms of Use | Kifayro',
   description: 'Terms and conditions governing the use of Kifayro deals and price comparison services.',
+  alternates: {
+    canonical: '/terms',
+  },
+  openGraph: {
+    title: 'Terms of Use | Kifayro',
+    description: 'Terms and conditions governing the use of Kifayro deals and price comparison services.',
+    url: 'https://kifayro.vercel.app/terms',
+    type: 'website',
+  },
 };
 
 export default function TermsPage() {

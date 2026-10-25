@@ -12,7 +12,17 @@ import { formatINR } from '@/lib/formatters';
 export const metadata: Metadata = {
   title: 'Indian Online Price Comparison Engine | Kifayro',
   description:
-    'Compare real-time and verified prices for electronics, smartphones, and appliances across Amazon India, Flipkart, Croma, and Reliance Digital.',
+    'Compare benchmark prices for electronics, smartphones, and appliances across Indian stores like Amazon India, Flipkart, Croma, and Reliance Digital on Kifayro.',
+  alternates: {
+    canonical: '/compare',
+  },
+  openGraph: {
+    title: 'Indian Online Price Comparison Engine | Kifayro',
+    description:
+      'Compare benchmark prices for electronics, smartphones, and appliances across Indian stores like Amazon India, Flipkart, Croma, and Reliance Digital on Kifayro.',
+    url: 'https://kifayro.vercel.app/compare',
+    type: 'website',
+  },
 };
 
 export default async function ComparePage() {

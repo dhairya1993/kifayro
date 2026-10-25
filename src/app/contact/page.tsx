@@ -8,6 +8,16 @@ export const metadata: Metadata = {
   title: 'Contact Kifayro Support & Editorial Desk',
   description:
     'Get in touch with Kifayro. Submit deal tip-offs, report outdated prices, or inquire about merchant partnership opportunities.',
+  alternates: {
+    canonical: '/contact',
+  },
+  openGraph: {
+    title: 'Contact Kifayro Support & Editorial Desk',
+    description:
+      'Get in touch with Kifayro. Submit deal feedback, report price discrepancies, or inquire about merchant partnerships.',
+    url: 'https://kifayro.vercel.app/contact',
+    type: 'website',
+  },
 };
 
 export default function ContactPage() {

@@ -21,12 +21,22 @@ export async function generateMetadata({
   if (!store) {
     return {
       title: 'Store Not Found | Kifayro',
+      robots: { index: false, follow: false },
     };
   }
 
   return {
-    title: `${store.name} Deals, Offers & Coupons in India`,
-    description: `Verified discounts, price drops, and valid promo codes for ${store.name} on Kifayro.`,
+    title: `${store.name} Deals, Offers & Coupons in India | Kifayro`,
+    description: `Sample discounts, price drops, and promo codes for ${store.name} on Kifayro.`,
+    alternates: {
+      canonical: `/stores/${store.slug}`,
+    },
+    openGraph: {
+      title: `${store.name} Deals, Offers & Coupons in India | Kifayro`,
+      description: `Sample discounts, price drops, and promo codes for ${store.name} on Kifayro.`,
+      url: `https://kifayro.vercel.app/stores/${store.slug}`,
+      type: 'website',
+    },
   };
 }
 

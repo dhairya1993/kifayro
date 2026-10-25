@@ -21,12 +21,22 @@ export async function generateMetadata({
   if (!category) {
     return {
       title: 'Category Not Found | Kifayro',
+      robots: { index: false, follow: false },
     };
   }
 
   return {
-    title: `${category.name} Deals & Price Comparison in India`,
+    title: `${category.name} Deals & Price Comparison in India | Kifayro`,
     description: category.description,
+    alternates: {
+      canonical: `/categories/${category.slug}`,
+    },
+    openGraph: {
+      title: `${category.name} Deals & Price Comparison in India | Kifayro`,
+      description: category.description,
+      url: `https://kifayro.vercel.app/categories/${category.slug}`,
+      type: 'website',
+    },
   };
 }
 

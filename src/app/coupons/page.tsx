@@ -12,6 +12,16 @@ export const metadata: Metadata = {
   title: 'Indian Store Coupons & Promo Vouchers (Preview) | Kifayro',
   description:
     'Sample promo vouchers, discount codes, and qualification terms for Amazon India, Flipkart, Myntra, Croma, and Nykaa on Kifayro.',
+  alternates: {
+    canonical: '/coupons',
+  },
+  openGraph: {
+    title: 'Indian Store Coupons & Promo Vouchers (Preview) | Kifayro',
+    description:
+      'Sample promo vouchers, discount codes, and qualification terms for Amazon India, Flipkart, Myntra, Croma, and Nykaa on Kifayro.',
+    url: 'https://kifayro.vercel.app/coupons',
+    type: 'website',
+  },
 };
 
 export default async function CouponsPage() {

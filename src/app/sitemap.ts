@@ -3,7 +3,7 @@ import { dataAdapter } from '@/lib/data-adapter';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kifayro.vercel.app';
-  const buildDate = new Date('2026-10-23T18:00:00.000Z');
+  const buildDate = new Date('2026-10-25T10:00:00.000Z');
 
   const [products, deals, categories, stores, articles] = await Promise.all([
     dataAdapter.getProducts(),
