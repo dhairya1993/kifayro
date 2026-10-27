@@ -6,14 +6,14 @@ import { ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'How Kifayro Works — Deal Verification & Comparison',
+  title: 'How It Works — Deal Verification & Comparison',
   description:
     'Discover how Kifayro indexes products, tracks price benchmarks, compares SKUs across Indian stores, and sustains itself through transparent affiliate links.',
   alternates: {
     canonical: '/how-it-works',
   },
   openGraph: {
-    title: 'How Kifayro Works — Deal Verification & Comparison',
+    title: 'How It Works — Deal Verification & Comparison — Kifayro',
     description:
       'Discover how Kifayro indexes products, tracks price benchmarks, and compares SKUs across Indian stores.',
     url: 'https://kifayro.vercel.app/how-it-works',
@@ -22,6 +22,25 @@ export const metadata: Metadata = {
 };
 
 export default function HowItWorksPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://kifayro.vercel.app',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'How It Works',
+        item: 'https://kifayro.vercel.app/how-it-works',
+      },
+    ],
+  };
+
   const steps = [
     {
       step: '01',
@@ -47,6 +66,10 @@ export default function HowItWorksPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: 'How It Works' }]} />
 
       <header className="space-y-4">

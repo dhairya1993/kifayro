@@ -3,14 +3,14 @@ import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 export const metadata: Metadata = {
-  title: 'Editorial Policy & Verification Standards | Kifayro',
+  title: 'Editorial Policy & Verification Standards',
   description:
     'Our methodology for verifying discounts, comparing product SKUs, and maintaining independence from retailer influence.',
   alternates: {
     canonical: '/editorial-policy',
   },
   openGraph: {
-    title: 'Editorial Policy & Verification Standards | Kifayro',
+    title: 'Editorial Policy & Verification Standards — Kifayro',
     description:
       'Our methodology for tracking price benchmarks, comparing product SKUs, and maintaining editorial independence.',
     url: 'https://kifayro.vercel.app/editorial-policy',
@@ -19,8 +19,31 @@ export const metadata: Metadata = {
 };
 
 export default function EditorialPolicyPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://kifayro.vercel.app',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Editorial Policy',
+        item: 'https://kifayro.vercel.app/editorial-policy',
+      },
+    ],
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: 'Editorial Policy' }]} />
 
       <header className="space-y-4">

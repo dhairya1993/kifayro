@@ -2,17 +2,17 @@ import React from 'react';
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ContactFormClient } from './ContactFormClient';
-import { Mail, MessageSquare, ShieldCheck } from 'lucide-react';
+import { Mail, MessageSquare, ShieldCheck, ExternalLink } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Contact Kifayro Support & Editorial Desk',
+  title: 'Contact Us',
   description:
     'Get in touch with Kifayro. Submit deal tip-offs, report outdated prices, or inquire about merchant partnership opportunities.',
   alternates: {
     canonical: '/contact',
   },
   openGraph: {
-    title: 'Contact Kifayro Support & Editorial Desk',
+    title: 'Contact Us — Kifayro Support & Editorial Desk',
     description:
       'Get in touch with Kifayro. Submit deal feedback, report price discrepancies, or inquire about merchant partnerships.',
     url: 'https://kifayro.vercel.app/contact',
@@ -21,8 +21,41 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ContactPage',
+        name: 'Contact Kifayro',
+        description: 'Get in touch with Kifayro. Submit deal tip-offs, report outdated prices, or inquire about merchant partnerships.',
+        url: 'https://kifayro.vercel.app/contact',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://kifayro.vercel.app',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Contact Us',
+            item: 'https://kifayro.vercel.app/contact',
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: 'Contact Us' }]} />
 
       <header className="space-y-4">
@@ -46,7 +79,7 @@ export default function ContactPage() {
                 <div>
                   <div className="font-bold text-slate-900">Custom Domain Inboxes:</div>
                   <div className="text-slate-500 font-mono">support@kifayro.com (Setup Pending)</div>
-                  <p className="text-[11px] text-slate-400 mt-0.5">
+                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
                     Domain mail server and MX records are currently pending configuration.
                   </p>
                 </div>
@@ -55,16 +88,17 @@ export default function ContactPage() {
               <div className="flex items-start gap-3">
                 <MessageSquare className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-slate-900">Public Feedback & Issue Tracker:</div>
+                  <div className="font-bold text-slate-900">Public Feedback &amp; Issue Tracker:</div>
                   <a
                     href="https://github.com/dhairya1993/kifayro/issues"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-teal-700 underline font-medium hover:text-teal-900"
+                    className="text-teal-700 underline font-medium hover:text-teal-900 inline-flex items-center gap-1"
                   >
-                    github.com/dhairya1993/kifayro/issues
+                    <span>github.com/dhairya1993/kifayro/issues</span>
+                    <ExternalLink className="w-3 h-3 inline" />
                   </a>
-                  <p className="text-[11px] text-slate-400 mt-0.5">
+                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
                     Submit bug reports, price corrections, and feature requests directly to the repository.
                   </p>
                 </div>
@@ -73,7 +107,7 @@ export default function ContactPage() {
               <div className="flex items-start gap-3">
                 <ShieldCheck className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-slate-900">Affiliate & Partner Inquiries:</div>
+                  <div className="font-bold text-slate-900">Affiliate &amp; Partner Inquiries:</div>
                   <div className="text-slate-500 font-mono">affiliates@kifayro.com (Setup Pending)</div>
                 </div>
               </div>

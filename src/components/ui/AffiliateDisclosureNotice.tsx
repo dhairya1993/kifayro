@@ -69,7 +69,7 @@ export function AffiliateDisclosureNotice({
             Kifayro is an independent, ₹0-cost price comparison and deals discovery platform for Indian consumers. The platform is currently operating in platform preview mode and actively preparing for official affiliate partnerships with retailers like Amazon India, Flipkart, and other Indian merchant networks.
           </p>
           <p className="text-slate-600 leading-relaxed font-medium">
-            Once official partnerships are approved, qualifying purchases made through eligible links may generate referral fees to support our platform operations, at zero additional cost to shoppers. In the current preview mode, all outbound links are standard direct merchant links without affiliate tracking or commercial commissions.
+            Once official partnerships are approved, qualifying purchases made through eligible links may generate referral fees to support our platform operations, at zero additional cost to shoppers. In accordance with Amazon Associates Operating Agreement requirements: &ldquo;As an Amazon Associate I earn from qualifying purchases.&rdquo; In the current preview mode, all outbound links are standard direct merchant links without active affiliate tracking or commercial commissions.
           </p>
           <div className="pt-1">
             <Link

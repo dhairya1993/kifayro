@@ -7,14 +7,14 @@ import { AffiliateDisclosureNotice } from '@/components/ui/AffiliateDisclosureNo
 import { DealsListingClient } from './DealsListingClient';
 
 export const metadata: Metadata = {
-  title: 'Indian Deals & Offers (Preview) | Kifayro',
+  title: 'Indian Deals & Offers (Preview)',
   description:
     'Browse sample discounts, price drops, and promotional offers across top Indian e-commerce stores on Kifayro.',
   alternates: {
     canonical: '/deals',
   },
   openGraph: {
-    title: 'Indian Deals & Offers (Preview) | Kifayro',
+    title: 'Indian Deals & Offers (Preview) — Kifayro',
     description:
       'Browse sample discounts, price drops, and promotional offers across top Indian e-commerce stores on Kifayro.',
     url: 'https://kifayro.vercel.app/deals',
@@ -38,8 +38,41 @@ export default async function DealsPage({
     dataAdapter.getStores(),
   ]);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        name: 'Indian Deals & Offers (Preview) | Kifayro',
+        description: 'Browse sample discounts, price drops, and promotional offers across top Indian e-commerce stores on Kifayro.',
+        url: 'https://kifayro.vercel.app/deals',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://kifayro.vercel.app',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Deals',
+            item: 'https://kifayro.vercel.app/deals',
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: 'All Deals' }]} />
 
       <div className="space-y-2">

@@ -26,12 +26,12 @@ export async function generateMetadata({
 
   if (!deal) {
     return {
-      title: 'Deal Not Found | Kifayro',
+      title: 'Deal Not Found',
     };
   }
 
   return {
-    title: `${deal.title} — Deal Details (Sample Offer) | Kifayro`,
+    title: `${deal.title} — Sample Offer Details`,
     description: deal.description,
     robots: deal.isDemoData
       ? {
@@ -63,8 +63,48 @@ export default async function DealDetailPage({
   const isExpired = deal.status === 'expired';
   const relatedDeals = otherDeals.filter((d) => d.id !== deal.id).slice(0, 3);
 
+  // Schema.org Structured Data
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        name: `${deal.title} (Sample Deal)`,
+        description: deal.description,
+        url: `https://kifayro.vercel.app/deal/${deal.slug}`,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://kifayro.vercel.app',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Deals',
+            item: 'https://kifayro.vercel.app/deals',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: deal.title,
+            item: `https://kifayro.vercel.app/deal/${deal.slug}`,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs
         items={[
           { label: 'Deals', href: '/deals' },
@@ -182,14 +222,19 @@ export default async function DealDetailPage({
         {/* CTA */}
         <div className="pt-2">
           {!isExpired ? (
-            <Link
-              href={deal.affiliateUrl}
-              className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-2xl bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-bold text-base shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-teal-600/50"
-              rel="noopener noreferrer nofollow"
-            >
-              <span>View Deal on {store?.name || 'Merchant Site'}</span>
-              <ExternalLink className="w-4 h-4 ml-1" />
-            </Link>
+            <div className="space-y-2">
+              <Link
+                href={deal.affiliateUrl}
+                className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-2xl bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-bold text-base shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-teal-600/50"
+                rel="noopener noreferrer nofollow"
+              >
+                <span>View Deal on {store?.name || 'Merchant Site'}</span>
+                <ExternalLink className="w-4 h-4 ml-1" />
+              </Link>
+              <div className="text-center">
+                <AffiliateDisclosureNotice variant="inline" />
+              </div>
+            </div>
           ) : (
             <div className="p-4 bg-slate-100 rounded-2xl text-center text-xs text-slate-500 font-medium">
               This promotion has concluded. Check active offers below.

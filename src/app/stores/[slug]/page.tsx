@@ -20,19 +20,34 @@ export async function generateMetadata({
 
   if (!store) {
     return {
-      title: 'Store Not Found | Kifayro',
+      title: 'Store Not Found',
       robots: { index: false, follow: false },
     };
   }
 
+  const [deals, coupons, products] = await Promise.all([
+    dataAdapter.getDeals({ store: store.slug }),
+    dataAdapter.getCoupons(store.slug),
+    dataAdapter.getProducts({ store: store.slug }),
+  ]);
+  const isPopulated = deals.length > 0 || coupons.length > 0 || products.length > 0;
+
   return {
-    title: `${store.name} Deals, Offers & Coupons in India | Kifayro`,
+    title: `${store.name} Deals, Offers & Coupons in India`,
     description: `Sample discounts, price drops, and promo codes for ${store.name} on Kifayro.`,
     alternates: {
       canonical: `/stores/${store.slug}`,
     },
+    ...(!isPopulated
+      ? {
+          robots: {
+            index: false,
+            follow: true,
+          },
+        }
+      : {}),
     openGraph: {
-      title: `${store.name} Deals, Offers & Coupons in India | Kifayro`,
+      title: `${store.name} Deals, Offers & Coupons in India — Kifayro`,
       description: `Sample discounts, price drops, and promo codes for ${store.name} on Kifayro.`,
       url: `https://kifayro.vercel.app/stores/${store.slug}`,
       type: 'website',
@@ -58,8 +73,49 @@ export default async function StoreDetailPage({
     dataAdapter.getProducts({ store: store.slug }),
   ]);
 
+  // Schema.org Structured Data
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        name: `${store.name} Deals, Offers & Coupons in India | Kifayro`,
+        description: `Sample discounts, price drops, and promo codes for ${store.name} on Kifayro.`,
+        url: `https://kifayro.vercel.app/stores/${store.slug}`,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://kifayro.vercel.app',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Stores',
+            item: 'https://kifayro.vercel.app/stores',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: store.name,
+            item: `https://kifayro.vercel.app/stores/${store.slug}`,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <Breadcrumbs
         items={[
           { label: 'Stores', href: '/stores' },
@@ -87,7 +143,7 @@ export default async function StoreDetailPage({
           <a
             href={store.websiteUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
             className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-colors self-start sm:self-center"
           >
             <span>Visit {store.name} Website</span>

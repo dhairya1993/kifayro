@@ -3,14 +3,14 @@ import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 export const metadata: Metadata = {
-  title: 'Disclaimer | Kifayro',
+  title: 'Disclaimer',
   description:
     'Legal and pricing disclaimer regarding e-commerce listings, third-party content, and affiliate disclosures on Kifayro.',
   alternates: {
     canonical: '/disclaimer',
   },
   openGraph: {
-    title: 'Disclaimer | Kifayro',
+    title: 'Disclaimer — Kifayro',
     description:
       'Legal and pricing disclaimer regarding e-commerce listings, third-party content, and affiliate disclosures on Kifayro.',
     url: 'https://kifayro.vercel.app/disclaimer',
@@ -19,8 +19,31 @@ export const metadata: Metadata = {
 };
 
 export default function DisclaimerPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://kifayro.vercel.app',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Disclaimer',
+        item: 'https://kifayro.vercel.app/disclaimer',
+      },
+    ],
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: 'Disclaimer' }]} />
 
       <header className="space-y-4">

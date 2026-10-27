@@ -7,14 +7,14 @@ import { DemoBanner } from '@/components/ui/DemoBanner';
 import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Categories Directory | Kifayro',
+  title: 'Categories Directory',
   description:
     'Explore benchmark deals, price comparisons, and buying guides by category: Mobiles, Electronics, Laptops, Home Appliances, Fashion, Beauty, and Grocery in India.',
   alternates: {
     canonical: '/categories',
   },
   openGraph: {
-    title: 'Categories Directory | Kifayro',
+    title: 'Categories Directory — Kifayro',
     description:
       'Explore benchmark deals, price comparisons, and buying guides by category across Indian online retail.',
     url: 'https://kifayro.vercel.app/categories',
@@ -29,8 +29,41 @@ export default async function CategoriesPage() {
     dataAdapter.getProducts(),
   ]);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        name: 'Product & Deal Categories | Kifayro',
+        description: 'Explore benchmark deals, price comparisons, and buying guides by category: Mobiles, Electronics, Laptops, Home Appliances, Fashion, Beauty, and Grocery in India.',
+        url: 'https://kifayro.vercel.app/categories',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://kifayro.vercel.app',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Categories',
+            item: 'https://kifayro.vercel.app/categories',
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: 'Categories' }]} />
 
       <div className="space-y-2">

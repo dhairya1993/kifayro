@@ -10,14 +10,14 @@ import Link from 'next/link';
 import { formatINR } from '@/lib/formatters';
 
 export const metadata: Metadata = {
-  title: 'Indian Online Price Comparison Engine | Kifayro',
+  title: 'Indian Online Price Comparison Engine',
   description:
     'Compare benchmark prices for electronics, smartphones, and appliances across Indian stores like Amazon India, Flipkart, Croma, and Reliance Digital on Kifayro.',
   alternates: {
     canonical: '/compare',
   },
   openGraph: {
-    title: 'Indian Online Price Comparison Engine | Kifayro',
+    title: 'Indian Online Price Comparison Engine — Kifayro',
     description:
       'Compare benchmark prices for electronics, smartphones, and appliances across Indian stores like Amazon India, Flipkart, Croma, and Reliance Digital on Kifayro.',
     url: 'https://kifayro.vercel.app/compare',
@@ -31,8 +31,41 @@ export default async function ComparePage() {
     (p) => p.comparisons && p.comparisons.length > 1
   );
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        name: 'Indian Online Price Comparison Engine | Kifayro',
+        description: 'Compare benchmark prices for electronics, smartphones, and appliances across Indian stores like Amazon India, Flipkart, Croma, and Reliance Digital on Kifayro.',
+        url: 'https://kifayro.vercel.app/compare',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://kifayro.vercel.app',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Price Comparison',
+            item: 'https://kifayro.vercel.app/compare',
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: 'Price Comparison' }]} />
 
       <div className="space-y-3">

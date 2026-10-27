@@ -8,7 +8,7 @@ import { ProductCard } from '@/components/products/ProductCard';
 import { DealCard } from '@/components/deals/DealCard';
 import { DemoBanner } from '@/components/ui/DemoBanner';
 import { AffiliateDisclosureNotice } from '@/components/ui/AffiliateDisclosureNotice';
-import { Tag, Scale, ArrowLeft } from 'lucide-react';
+import { Tag, Scale, ArrowLeft, BookOpen, ArrowRight, Clock } from 'lucide-react';
 
 export async function generateMetadata({
   params,
@@ -20,19 +20,19 @@ export async function generateMetadata({
 
   if (!category) {
     return {
-      title: 'Category Not Found | Kifayro',
+      title: 'Category Not Found',
       robots: { index: false, follow: false },
     };
   }
 
   return {
-    title: `${category.name} Deals & Price Comparison in India | Kifayro`,
+    title: `${category.name} Deals & Price Comparison in India`,
     description: category.description,
     alternates: {
       canonical: `/categories/${category.slug}`,
     },
     openGraph: {
-      title: `${category.name} Deals & Price Comparison in India | Kifayro`,
+      title: `${category.name} Deals & Price Comparison in India — Kifayro`,
       description: category.description,
       url: `https://kifayro.vercel.app/categories/${category.slug}`,
       type: 'website',
@@ -52,16 +52,126 @@ export default async function CategoryDetailPage({
     notFound();
   }
 
-  const [products, allDeals] = await Promise.all([
+  const [products, allDeals, allArticles] = await Promise.all([
     dataAdapter.getProducts({ category: category.slug }),
     dataAdapter.getDeals({ status: 'active' }),
+    dataAdapter.getArticles(),
   ]);
 
   const productIds = new Set(products.map((p) => p.id));
   const categoryDeals = allDeals.filter((d) => productIds.has(d.productId));
 
+  // Map contextual shopping guides to category
+  const relevantArticles = allArticles.filter((article) => {
+    const s = category.slug;
+    if (s === 'mobiles') {
+      return (
+        article.slug.includes('smartphone') ||
+        article.slug.includes('specifications') ||
+        article.tags.includes('Smartphones')
+      );
+    }
+    if (s === 'computers') {
+      return (
+        article.slug.includes('laptop') ||
+        article.slug.includes('home-office') ||
+        article.tags.includes('Laptops') ||
+        article.tags.includes('Home Office')
+      );
+    }
+    if (s === 'appliances') {
+      return (
+        article.slug.includes('smart-tv') ||
+        article.slug.includes('warranty') ||
+        article.tags.includes('Smart TV')
+      );
+    }
+    if (s === 'electronics') {
+      return (
+        article.slug.includes('smart-tv') ||
+        article.slug.includes('home-office') ||
+        article.slug.includes('specifications') ||
+        article.tags.includes('Smart TV')
+      );
+    }
+    if (s === 'home-kitchen') {
+      return (
+        article.slug.includes('prices-before-buying') ||
+        article.slug.includes('genuine-discounts') ||
+        article.slug.includes('warranty')
+      );
+    }
+    if (s === 'fashion') {
+      return (
+        article.slug.includes('coupon-codes') ||
+        article.slug.includes('genuine-discounts') ||
+        article.slug.includes('sale-events')
+      );
+    }
+    if (s === 'beauty') {
+      return (
+        article.slug.includes('fake-shopping') ||
+        article.slug.includes('coupon-codes')
+      );
+    }
+    if (s === 'grocery') {
+      return (
+        article.slug.includes('prices-before-buying') ||
+        article.slug.includes('listed-discount')
+      );
+    }
+    if (s === 'education') {
+      return (
+        article.slug.includes('laptop') ||
+        article.slug.includes('prices-before-buying')
+      );
+    }
+    return false;
+  }).slice(0, 3);
+
+  // Schema.org CollectionPage and BreadcrumbList
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        name: `${category.name} Deals & Price Comparison in India | Kifayro`,
+        description: category.description,
+        url: `https://kifayro.vercel.app/categories/${category.slug}`,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://kifayro.vercel.app',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Categories',
+            item: 'https://kifayro.vercel.app/categories',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: category.name,
+            item: `https://kifayro.vercel.app/categories/${category.slug}`,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <Breadcrumbs
         items={[
           { label: 'Categories', href: '/categories' },
@@ -98,6 +208,57 @@ export default async function CategoryDetailPage({
 
       <DemoBanner itemType={`${category.name} Catalogue`} />
 
+      {/* Contextual Helpful Guides for this Category */}
+      {relevantArticles.length > 0 && (
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-teal-600" />
+              <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+                Recommended Buying Guides for {category.name}
+              </h2>
+            </div>
+            <Link
+              href="/blog"
+              className="text-xs font-semibold text-teal-700 hover:text-teal-900 inline-flex items-center gap-1"
+            >
+              All Guides <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {relevantArticles.map((art) => (
+              <div
+                key={art.id}
+                className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs hover:shadow-md hover:border-teal-400 transition-all flex flex-col justify-between"
+              >
+                <div className="space-y-2.5">
+                  <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                    <Clock className="w-3 h-3 text-slate-400" />
+                    <span>{art.readingTime}</span>
+                  </div>
+                  <h3 className="font-bold text-slate-900 text-sm leading-snug line-clamp-2">
+                    <Link href={`/blog/${art.slug}`} className="hover:text-teal-700 transition-colors">
+                      {art.title}
+                    </Link>
+                  </h3>
+                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                    {art.excerpt}
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-slate-100 mt-3">
+                  <Link
+                    href={`/blog/${art.slug}`}
+                    className="text-xs font-bold text-teal-700 hover:text-teal-900 inline-flex items-center gap-1"
+                  >
+                    Read Guide <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Active Deals in Category */}
       {categoryDeals.length > 0 && (
         <section className="space-y-4">
@@ -125,7 +286,7 @@ export default async function CategoryDetailPage({
             </h2>
           </div>
           <span className="text-xs text-slate-500 font-medium">
-            {products.length} Products Verified
+            {products.length} Benchmark Products Catalogued
           </span>
         </div>
 

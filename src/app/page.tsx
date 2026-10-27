@@ -52,15 +52,33 @@ export default async function HomePage() {
   // Schema.org Structured Data
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Kifayro',
-    url: 'https://kifayro.vercel.app',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://kifayro.vercel.app/search?q={search_term_string}',
-      'query-input': 'required name=search_term_string',
-    },
-    description: 'India’s smart deals aggregator, price comparison tool, and buying discovery platform.',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        name: 'Kifayro',
+        url: 'https://kifayro.vercel.app',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: 'https://kifayro.vercel.app/search?q={search_term_string}',
+          },
+          'query-input': 'required name=search_term_string',
+        },
+        description: 'India’s smart deals discovery, benchmark price comparison, and consumer advice platform.',
+      },
+      {
+        '@type': 'Organization',
+        name: 'Kifayro',
+        url: 'https://kifayro.vercel.app',
+        description: 'Independent Indian shopping discovery, multi-store price comparison, and consumer advice platform.',
+        foundingLocation: {
+          '@type': 'Country',
+          name: 'India',
+        },
+        sameAs: ['https://github.com/dhairya1993/kifayro'],
+      },
+    ],
   };
 
   return (

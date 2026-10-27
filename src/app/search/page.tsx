@@ -7,7 +7,7 @@ import { SearchResultsClient } from './SearchResultsClient';
 import { DemoBanner } from '@/components/ui/DemoBanner';
 
 export const metadata: Metadata = {
-  title: 'Search Deals & Products | Kifayro',
+  title: 'Search Deals & Products',
   description:
     'Search through Indian deals, price comparisons, coupons, and stores on Kifayro.',
   robots: {

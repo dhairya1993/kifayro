@@ -15,6 +15,9 @@ function fetchUrl(path) {
           data += chunk;
         });
         res.on('end', () => {
+          if (data.includes('| Kifayro | Kifayro')) {
+            console.error(`[FAIL] ${path} contains duplicate brand suffix '| Kifayro | Kifayro' in rendered title!`);
+          }
           resolve({ status: res.statusCode, headers: res.headers, body: data });
         });
       })
@@ -37,6 +40,7 @@ async function runRouteAudit() {
         'rel="canonical"',
         'google-site-verification',
         'Gk_qBldHZxCtKGWjJ9a1KTVOWWhVYACeojkCN34mvVU',
+        'href="/about"',
       ],
     },
     // Search crawling and indexing policy
@@ -61,12 +65,59 @@ async function runRouteAudit() {
     { path: '/product/non-existent-product-xyz', expectedStatus: 404, checks: ['404'] },
     { path: '/compare', expectedStatus: 200, checks: ['Multi-Store Price Comparison Engine', 'Benchmark Lowest'] },
     { path: '/coupons', expectedStatus: 200, checks: ['Indian Store Coupons', 'Sample Voucher'] },
-    { path: '/about', expectedStatus: 200, checks: ['About Kifayro', 'Commercial Transparency'] },
+    {
+      path: '/about',
+      expectedStatus: 200,
+      checks: [
+        'About Kifayro',
+        'Kifayro helps shoppers discover products',
+        'Product Discovery Across Categories',
+        'Educational Shopping Guides',
+        'Multi-Store SKU Comparisons',
+        'Platform Demonstration Mode',
+        'Commercial Model',
+        'Amazon Associates Program Status',
+        'kifayrodeals-21',
+        'As an Amazon Associate I earn from qualifying purchases',
+        'Pricing Accuracy',
+        'Contact &amp; Feedback Channels',
+      ],
+    },
     { path: '/how-it-works', expectedStatus: 200, checks: ['How Kifayro Works', 'Catalogue Indexing'] },
-    { path: '/affiliate-disclosure', expectedStatus: 200, checks: ['Affiliate Disclosure', 'Transparency &amp; Commercial Intent'] },
+    {
+      path: '/affiliate-disclosure',
+      expectedStatus: 200,
+      checks: [
+        'Affiliate Disclosure',
+        'Transparency &amp; Commercial Intent',
+        'kifayrodeals-21',
+        'The assignment of a Store ID does not itself confirm final approval',
+      ],
+      negativeChecks: [
+        'does not currently possess an approved Amazon Associate tracking ID',
+      ],
+    },
     { path: '/editorial-policy', expectedStatus: 200, checks: ['Editorial &amp; Verification Policy'] },
-    { path: '/privacy-policy', expectedStatus: 200, checks: ['Privacy Policy'] },
-    { path: '/terms', expectedStatus: 200, checks: ['Terms of Use'] },
+    {
+      path: '/privacy-policy',
+      expectedStatus: 200,
+      checks: [
+        'Privacy Policy',
+        'Data Minimization',
+        'Vercel Web Analytics',
+        'kifayrodeals-21',
+      ],
+    },
+    {
+      path: '/terms',
+      expectedStatus: 200,
+      checks: [
+        'Terms of Use',
+        'Demonstration &amp; Sample Data Disclosure',
+        'kifayrodeals-21',
+        'Acceptable Use',
+      ],
+    },
     { path: '/disclaimer', expectedStatus: 200, checks: ['Disclaimer'] },
     { path: '/contact', expectedStatus: 200, checks: ['Contact Channels', 'Setup Pending'] },
 
@@ -238,6 +289,24 @@ async function runRouteAudit() {
       ],
     },
     {
+      path: '/blog/what-to-check-before-buying-a-smart-tv-in-india',
+      expectedStatus: 200,
+      checks: [
+        'What to Check Before Buying a Smart TV in India',
+        'Display Panel Architecture: IPS vs VA vs OLED',
+        'schema.org',
+      ],
+    },
+    {
+      path: '/blog/choosing-useful-accessories-for-a-home-office-setup',
+      expectedStatus: 200,
+      checks: [
+        'Choosing Essential Accessories for a Productive Home Office Setup',
+        'Laptop Elevation and Ergonomic Peripherals',
+        'schema.org',
+      ],
+    },
+    {
       path: '/blog/non-existent-article-xyz',
       expectedStatus: 404,
       checks: ['404'],
@@ -333,6 +402,8 @@ async function runRouteAudit() {
       'how-to-shop-safely-during-major-sale-events',
       'how-to-understand-product-warranty-and-return-policies',
       'how-to-compare-online-offers-without-being-misled-by-the-listed-discount',
+      'what-to-check-before-buying-a-smart-tv-in-india',
+      'choosing-useful-accessories-for-a-home-office-setup',
     ];
 
     let allArticlesInSitemap = true;
@@ -362,6 +433,26 @@ async function runRouteAudit() {
     if (sitemapUrlsValid) {
       console.log(`[PASS] All ${sitemapUrls.length} sitemap URLs return HTTP 200 OK.`);
       passed++;
+    }
+
+    // 5. Ensure unpopulated store hubs are excluded from sitemap per empty hub indexing policy
+    const hasRelianceInSitemap = sitemapUrls.some((u) => u.endsWith('/stores/reliance-digital'));
+    const hasAjioInSitemap = sitemapUrls.some((u) => u.endsWith('/stores/ajio'));
+    if (hasRelianceInSitemap || hasAjioInSitemap) {
+      console.error('[FAIL] Sitemap contains empty store hubs without catalogued items!');
+      failed++;
+    } else {
+      console.log('[PASS] Sitemap correctly excludes unpopulated store hubs (/stores/reliance-digital, /stores/ajio).');
+      passed++;
+    }
+
+    // 6. Ensure exact sitemap URL count is 42
+    if (sitemapUrls.length === 42) {
+      console.log('[PASS] Sitemap contains exactly 42 valid, populated canonical URLs.');
+      passed++;
+    } else {
+      console.error(`[FAIL] Expected 42 sitemap URLs, got ${sitemapUrls.length}`);
+      failed++;
     }
   } catch (err) {
     console.error(`[ERROR] Sitemap validation: ${err.message}`);

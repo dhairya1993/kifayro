@@ -10,8 +10,8 @@ export const articles: Article[] = [
     publishedAt: '2026-10-16T08:30:00Z',
     readingTime: '6 min read',
     author: {
-      name: 'Aditya Sharma',
-      role: 'Consumer Research Lead at Kifayro',
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
     },
     tags: ['Price Comparison', 'Smart Shopping', 'Indian Retail', 'Buyer Guide'],
     keyTakeaways: [
@@ -76,8 +76,8 @@ You can inspect verified retailer storefront profiles in our [Supported Indian S
     publishedAt: '2026-10-17T09:15:00Z',
     readingTime: '5 min read',
     author: {
-      name: 'Aditya Sharma',
-      role: 'Consumer Research Lead at Kifayro',
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
     },
     tags: ['Discounts', 'MRP Verification', 'Consumer Advice', 'Deals Analysis'],
     keyTakeaways: [
@@ -130,8 +130,8 @@ If an item is genuinely being liquidated at a manufacturer-authorized discount, 
     publishedAt: '2026-10-18T10:00:00Z',
     readingTime: '6 min read',
     author: {
-      name: 'Pooja Iyer',
-      role: 'Fintech & Deals Analyst',
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
     },
     tags: ['Coupons', 'Cashback', 'Credit Cards', 'Checkout Savings'],
     keyTakeaways: [
@@ -193,8 +193,8 @@ Key characteristics:
     publishedAt: '2026-10-19T11:30:00Z',
     readingTime: '7 min read',
     author: {
-      name: 'Aditya Sharma',
-      role: 'Consumer Research Lead at Kifayro',
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
     },
     tags: ['Smartphones', 'Buying Guide', 'Tech Specs', 'Mobile Budget'],
     keyTakeaways: [
@@ -256,8 +256,8 @@ A smartphone is only as durable as its software security:
     publishedAt: '2026-10-20T09:00:00Z',
     readingTime: '7 min read',
     author: {
-      name: 'Aditya Sharma',
-      role: 'Consumer Research Lead at Kifayro',
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
     },
     tags: ['Laptops', 'Hardware Specs', 'Student Tech', 'Office Productivity'],
     keyTakeaways: [
@@ -318,8 +318,8 @@ If you spend 6 to 10 hours daily in front of a laptop, screen quality directly i
     publishedAt: '2026-10-21T08:00:00Z',
     readingTime: '6 min read',
     author: {
-      name: 'Aditya Sharma',
-      role: 'Consumer Research Lead at Kifayro',
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
     },
     tags: ['Specifications', 'Product Research', 'Tech Comparison', 'Electronics'],
     keyTakeaways: [
@@ -374,8 +374,8 @@ When buying refrigerators, air conditioners, or washing machines in India, never
     publishedAt: '2026-10-22T09:30:00Z',
     readingTime: '6 min read',
     author: {
-      name: 'Pooja Iyer',
-      role: 'Fintech & Deals Analyst',
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
     },
     tags: ['Online Safety', 'Scam Prevention', 'Consumer Protection', 'Phishing Awareness'],
     keyTakeaways: [
@@ -433,8 +433,8 @@ Legitimate e-commerce merchants integrate regulated payment aggregators (such as
     publishedAt: '2026-10-23T10:15:00Z',
     readingTime: '6 min read',
     author: {
-      name: 'Aditya Sharma',
-      role: 'Consumer Research Lead at Kifayro',
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
     },
     tags: ['Festive Sales', 'Shopping Safety', 'Open Box Delivery', 'Consumer Advice'],
     keyTakeaways: [
@@ -493,8 +493,8 @@ High transaction volumes during festive sales attract increased phishing and cre
     publishedAt: '2026-10-24T08:00:00Z',
     readingTime: '6 min read',
     author: {
-      name: 'Aditya Sharma',
-      role: 'Consumer Research Lead at Kifayro',
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
     },
     tags: ['Warranty', 'Return Policies', 'Consumer Rights', 'After-Sales Support'],
     keyTakeaways: [
@@ -550,8 +550,8 @@ To successfully claim warranty service in India, keep the following records orga
     publishedAt: '2026-10-24T11:00:00Z',
     readingTime: '6 min read',
     author: {
-      name: 'Pooja Iyer',
-      role: 'Fintech & Deals Analyst',
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
     },
     tags: ['Offer Calculation', 'Net Price', 'Bank Discounts', 'Smart Purchasing'],
     keyTakeaways: [
@@ -605,6 +605,124 @@ Use our structured [Multi-Store Price Comparison Engine](/compare) to check base
 *Merchant & Bank Checkpoint:* Prior to checkout:
 - Check whether your specific card variant (e.g., RuPay, Visa, Mastercard, Corporate) qualifies for the bank promotion.
 - Confirm whether the bank offer applies to full-swipe payments or is restricted solely to EMI transactions.
+    `,
+  },
+  {
+    id: 'art-what-to-check-before-buying-a-smart-tv-in-india',
+    slug: 'what-to-check-before-buying-a-smart-tv-in-india',
+    title: 'What to Check Before Buying a Smart TV in India: Display Panels, Operating Systems, and Audio Specs',
+    excerpt: 'A comprehensive technical buying framework for Indian living rooms: IPS vs VA panel contrast, Google TV vs webOS vs Tizen, audio power (RMS), and installation warranty clauses.',
+    category: 'Buying Guides',
+    publishedAt: '2026-10-25T08:00:00Z',
+    readingTime: '7 min read',
+    author: {
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
+    },
+    tags: ['Smart TV', 'Display Technology', 'Living Room Tech', 'Buying Guide'],
+    keyTakeaways: [
+      'IPS panels offer wide viewing angles for joint family seating, while VA panels provide deeper blacks in dark rooms.',
+      'Check HDMI versioning: modern gaming consoles require HDMI 2.1 with eARC and ALLM support.',
+      'Do not rely solely on thin TV speakers; factor in an optical or eARC soundbar for clear dialogue in typical Indian rooms.',
+      'Verify whether installation and wall-mount brackets are included free or incur separate technician fees.',
+    ],
+    content: `
+## Demystifying the Indian Smart TV Market
+
+Purchasing a television is a centerpiece decision for Indian households. With dozens of brands competing across price points from ₹15,000 for budget 43-inch sets to ₹1,50,000+ for premium OLED panels, marketing terminology can easily mislead consumers into overpaying for cosmetic features while overlooking essential hardware fundamentals.
+
+Follow this systematic guide to choose a television that delivers outstanding picture quality, reliable software, and dependable longevity.
+
+## 1. Display Panel Architecture: IPS vs VA vs OLED
+
+The display panel represents over 60% of the manufacturing cost of any television. The two primary LCD panel types behave very differently:
+
+- **IPS (In-Plane Switching) Panels:** Widely used by brands like LG and Panasonic. They provide wide viewing angles (up to 178 degrees) with minimal color shift. This makes IPS the ideal choice for wide living room arrangements where family members sit off to the sides. However, native contrast is lower (typically 1000:1), meaning black scenes can appear dark grey in a pitch-black room.
+- **VA (Vertical Alignment) Panels:** Frequently used in Samsung and TCL models. VA panels offer deep contrast ratios (typically 3000:1 to 5000:1), resulting in punchier visuals and rich blacks during evening movie viewing. However, viewing angles are narrower; looking from the side causes colors to wash out.
+- **OLED (Organic LED):** Each pixel emits its own light, delivering true infinite contrast and instantaneous response times. OLED is the gold standard for picture quality, though premium pricing and ambient reflection handling in sunlit rooms require consideration.
+
+> **Verification Rule:** Ask the seller or inspect the model specifications to confirm whether the panel is IPS or VA based on your family seating layout.
+
+## 2. Operating System & App Longevity
+
+The smart TV operating system determines your interface responsiveness, streaming app availability, and smart home integration:
+
+- **Google TV / Android TV:** The most versatile ecosystem for Indian viewers. Offers the widest library of localized regional streaming apps (JioHotstar, Zee5, SonyLIV, Sun NXT) and built-in Chromecast support. Look for at least 2GB of RAM and 16GB of internal storage to avoid interface lag over time.
+- **webOS (LG):** Highly optimized, intuitive pointer remote control (Magic Remote), fast switching between inputs, and solid security support.
+- **Tizen OS (Samsung):** Smooth multitasking, reliable integration with Samsung smart appliances, and expansive streaming support.
+
+Compare television categories and electronics in our [Electronics & Appliances Catalogue](/categories/electronics).
+
+## 3. Audio Capabilities and eARC Ports
+
+Ultra-thin television bezels leave minimal physical enclosure space for speaker drivers. Most modern 4K TVs include 20W to 24W downward-firing speakers that struggle with vocal clarity during high-action soundtracks:
+
+- **Dolby Atmos / DTS Virtual:X:** Software decoders that simulate spatial audio. While beneficial, they cannot overcome the physical limits of small internal speakers.
+- **eARC (Enhanced Audio Return Channel):** Ensure at least one HDMI port supports eARC. This allows you to connect an external soundbar or home theatre system with a single high-bandwidth cable, passing lossless multi-channel surround sound without audio sync delay.
+
+## 4. Delivery, Installation & Warranty Verification
+
+*Merchant & Brand Checkpoint:* Before completing an online TV order in India:
+- Confirm whether wall-mount hardware and standard table stands are included in the package.
+- Book installation through the manufacturer's authorized helpline rather than an unverified local third party to prevent voiding warranty terms.
+- Retain the original carton and foam packaging throughout the replacement window.
+    `,
+  },
+  {
+    id: 'art-choosing-useful-accessories-for-a-home-office-setup',
+    slug: 'choosing-useful-accessories-for-a-home-office-setup',
+    title: 'Choosing Essential Accessories for a Productive Home Office Setup: Ergonomics, Power, and Connectivity',
+    excerpt: 'A practical, budget-conscious guide to setting up an ergonomic workstation in India: laptop stands, GaN multi-port power adapters, spike surge suppressors, and USB-C connectivity.',
+    category: 'Shopping Guides',
+    publishedAt: '2026-10-25T09:00:00Z',
+    readingTime: '6 min read',
+    author: {
+      name: 'Kifayro Editorial Team',
+      role: 'Shopping Research & Consumer Guides Desk',
+    },
+    tags: ['Home Office', 'Ergonomics', 'Productivity', 'Tech Accessories'],
+    keyTakeaways: [
+      'Elevating your laptop screen to eye level using a sturdy stand prevents chronic cervical neck strain during 8-hour workdays.',
+      'Invest in an ISI-certified spike buster with Metal Oxide Varistors (MOVs) to shield sensitive laptops from Indian power grid surges.',
+      'A multi-port 65W GaN charger consolidates desk cable clutter and powers laptops, tablets, and phones from a single wall plug.',
+      'Choose an ergonomic mouse with quiet switches and customizable thumb scroll wheels to prevent repetitive wrist strain.',
+    ],
+    content: `
+## Building an Efficient Indian Work-From-Home Desk
+
+As remote and hybrid work arrangements become standard across Indian technology and corporate sectors, professionals spend between 40 and 60 hours per week at their desks. Working long hours hunched directly over a flat laptop screen leads to musculoskeletal fatigue, while cluttered power strips create daily operational frustration.
+
+You do not need an extravagant budget to transform your workspace. Investing in four foundational accessory categories creates an ergonomic, reliable workstation that enhances daily focus and protects expensive computing hardware.
+
+## 1. Laptop Elevation and Ergonomic Peripherals
+
+Looking down at a laptop resting flat on a desk forces your neck into a 30-to-45-degree forward tilt, placing up to 20 kilograms of mechanical stress on your cervical spine:
+
+- **Aluminum Laptop Stands:** A foldable aluminum stand raises the top third of your display directly to eye level. Aluminum also functions as a passive heat sink, pulling thermal heat away from your laptop base.
+- **Dedicated External Keyboard:** Once your laptop is elevated, typing directly on the angled keyboard strains your wrists. Pair your stand with a compact external keyboard (scissor-switch or mechanical) placed flat on the desk surface.
+- **Ergonomic Mouse:** Standard flat trackpads force prolonged wrist pronation. An ergonomically contoured mouse—such as models featuring contoured thumb rests and vertical grip angles—promotes a natural handshake posture and reduces forearm tension.
+
+Explore computer peripherals in our [Computers & Accessories Directory](/categories/computers).
+
+## 2. Power Infrastructure & Indian Surge Protection
+
+Electrical supplies across Indian urban and suburban neighborhoods experience periodic voltage spikes, lightning surges, and unexpected load-shedding transitions:
+
+- **Spike Guards with Surge Suppression:** Avoid unbranded, multi-pin extension strips that merely duplicate wall sockets. Insist on an ISI-marked surge protector equipped with **Metal Oxide Varistors (MOVs)** and built-in thermal circuit breakers that trip instantly during over-voltage spikes.
+- **GaN Fast Charging Hubs:** Gallium Nitride (GaN) multi-port wall adapters supply up to 65W or 100W of clean USB Power Delivery (USB-PD). A single GaN brick replaces multiple proprietary chargers, powering your work laptop, secondary tablet, and smartphone simultaneously.
+
+## 3. High-Bandwidth Display and Docking Connectivity
+
+Modern ultra-thin laptops frequently feature only two USB-C ports. Connecting an external monitor, wireless peripherals, and Ethernet cables requires robust docking:
+
+- **USB-C Multi-Port Hubs:** Choose a hub that supports **100W Power Delivery Pass-Through**. This allows your charger to connect into the hub, powering your laptop through the same single cable that transmits video to your monitor.
+- **HDMI 2.0 / 4K 60Hz Support:** Budget USB-C hubs often cap external monitor outputs at 4K 30Hz, creating noticeable mouse pointer lag. Verify that the hub explicitly guarantees **4K at 60Hz**.
+
+## What to Check with Official Sources
+
+*Merchant & Electrical Checkpoint:* Prior to purchasing electronic accessories:
+- Check for the BIS (Bureau of Indian Standards) registration number on all power adapters and surge strips sold on Indian e-commerce platforms.
+- Review manufacturer warranty duration and service coverage across your home state.
     `,
   },
 ];

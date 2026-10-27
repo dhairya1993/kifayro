@@ -27,12 +27,12 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: 'Product Not Found | Kifayro',
+      title: 'Product Not Found',
     };
   }
 
   return {
-    title: `${product.name} — Specs & Multi-Store Price Comparison (Sample Data) | Kifayro`,
+    title: `${product.name} — Specs & Price Comparison (Sample)`,
     description: `Specifications and multi-store benchmark price comparison for ${product.name} across Indian stores on Kifayro.`,
     robots: product.isDemoData
       ? {
@@ -69,10 +69,43 @@ export default async function ProductDetailPage({
   // Structured data: Do not emit unsupported Product Offer schemas for demo/sample products
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: `${product.name} (Sample Specification & Price Comparison)`,
-    description: product.description,
-    url: `https://kifayro.vercel.app/product/${product.slug}`,
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        name: `${product.name} (Sample Specification & Price Comparison)`,
+        description: product.description,
+        url: `https://kifayro.vercel.app/product/${product.slug}`,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://kifayro.vercel.app',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Categories',
+            item: 'https://kifayro.vercel.app/categories',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: category ? category.name : product.category,
+            item: `https://kifayro.vercel.app/categories/${product.category}`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 4,
+            name: product.name,
+            item: `https://kifayro.vercel.app/product/${product.slug}`,
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -170,6 +203,10 @@ export default async function ProductDetailPage({
                 </span>
               </div>
 
+              <div className="text-[11px] text-amber-800 bg-amber-50/80 border border-amber-200/60 rounded-lg p-2.5 leading-relaxed">
+                <strong>Price &amp; Availability Notice:</strong> Listed benchmark pricing is derived from {product.priceSource}. Current live merchant pricing, stock availability, bank discounts, and shipping charges are subject to real-time verification directly on {store?.name || 'the merchant storefront'}.
+              </div>
+
               {/* Action Buttons */}
               <div className="pt-2 flex flex-col sm:flex-row gap-3">
                 <Link
@@ -177,19 +214,38 @@ export default async function ProductDetailPage({
                   className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-700 active:bg-teal-800 text-white font-bold text-sm shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-teal-600/50"
                   rel="noopener noreferrer nofollow"
                 >
-                  <span>Visit {store?.name || product.store}</span>
+                  <span>{store?.slug === 'amazon-in' ? 'View on Amazon' : `Visit ${store?.name || product.store}`}</span>
                   <ExternalLink className="w-4 h-4" />
                 </Link>
 
-                <a
-                  href="#comparison"
-                  className="inline-flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold text-xs transition-colors"
-                >
-                  <Scale className="w-4 h-4 text-teal-700" />
-                  Compare Stores
-                </a>
+                {product.comparisons && product.comparisons.length > 0 && (
+                  <a
+                    href="#comparison"
+                    className="inline-flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold text-xs transition-colors"
+                  >
+                    <Scale className="w-4 h-4 text-teal-700" />
+                    Compare Stores
+                  </a>
+                )}
+              </div>
+
+              <div className="pt-0.5">
+                <AffiliateDisclosureNotice variant="inline" />
               </div>
             </div>
+
+            {/* Editorial Buyer Notes */}
+            {product.detailedDescription && (
+              <div className="p-4 bg-teal-50/50 border border-teal-100 rounded-2xl text-xs text-slate-700 space-y-1.5">
+                <div className="font-bold text-slate-900 flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-teal-700" />
+                  Kifayro Buyer Analysis &amp; Overview
+                </div>
+                <p className="leading-relaxed text-slate-600">
+                  {product.detailedDescription}
+                </p>
+              </div>
+            )}
 
             {/* Key Features Bullet List */}
             {product.features && (
@@ -214,23 +270,25 @@ export default async function ProductDetailPage({
       <DemoBanner itemType="Sample Product Specs & Benchmark Pricing" />
 
       {/* Multi-Store Price Comparison Section */}
-      <section id="comparison" className="space-y-4 pt-4">
-        <div className="flex items-center gap-2">
-          <Scale className="w-5 h-5 text-teal-600" />
-          <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-            Compare Prices Across Indian Stores
-          </h2>
-        </div>
-        <p className="text-xs text-slate-600">
-          We track identical model codes (SKUs) across authorized retailers to guarantee fair comparisons.
-        </p>
+      {product.comparisons && product.comparisons.length > 0 && (
+        <section id="comparison" className="space-y-4 pt-4">
+          <div className="flex items-center gap-2">
+            <Scale className="w-5 h-5 text-teal-600" />
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+              Compare Prices Across Indian Stores
+            </h2>
+          </div>
+          <p className="text-xs text-slate-600">
+            We track identical model codes (SKUs) across authorized retailers to guarantee fair comparisons.
+          </p>
 
-        <PriceComparisonTable
-          productName={product.name}
-          comparisons={product.comparisons}
-          bestDealNote={product.bestDealNote}
-        />
-      </section>
+          <PriceComparisonTable
+            productName={product.name}
+            comparisons={product.comparisons}
+            bestDealNote={product.bestDealNote}
+          />
+        </section>
+      )}
 
       {/* Technical Specifications Table */}
       {product.specs && (

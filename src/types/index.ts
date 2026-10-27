@@ -6,6 +6,12 @@ export type AvailabilityStatus =
   | 'limited_stock'
   | 'price_unavailable';
 
+export type VerificationStatus =
+  | 'demo'
+  | 'verified'
+  | 'expired'
+  | 'unavailable';
+
 export type DealStatus = 'active' | 'expired' | 'upcoming';
 
 export type AffiliateStatus =
@@ -13,6 +19,20 @@ export type AffiliateStatus =
   | 'pending_approval'
   | 'connected'
   | 'disabled';
+
+export interface VerificationRecord {
+  status: VerificationStatus;
+  source: string;
+  lastVerifiedAt: string;
+  isVerified: boolean;
+  notes?: string;
+}
+
+export interface DetailedProductVerification {
+  productDetails: VerificationRecord;
+  price: VerificationRecord & { priceAmount: number | null; currency: Currency };
+  availability: VerificationRecord & { availabilityStatus: AvailabilityStatus };
+}
 
 export interface StorePriceComparison {
   storeSlug: string;
@@ -25,27 +45,51 @@ export interface StorePriceComparison {
   lastVerifiedAt: string;
   deliveryInfo?: string;
   bankOffers?: string;
+  isVerified?: boolean;
 }
 
 export interface Product {
   id: string;
   slug: string;
   name: string;
+  title?: string;
   description: string;
+  shortDescription?: string;
+  detailedDescription?: string;
   category: string;
   brand: string;
   image: string;
+  productImage?: string;
   currentPrice: number;
+  price?: number;
   originalPrice: number | null;
   currency: Currency;
   store: string;
+  merchant?: string;
   productUrl: string;
+  amazonProductUrl?: string;
   affiliateUrl: string;
+  affiliateTrackingId?: string;
   lastVerifiedAt: string;
   priceSource: string;
+  productDataSource?: string;
+  productVerifiedAt?: string;
+  productVerificationStatus?: VerificationStatus;
+  priceSourceUrl?: string;
+  priceVerificationStatus?: VerificationStatus;
+  priceLastVerifiedAt?: string;
   availabilityStatus: AvailabilityStatus;
+  availability?: AvailabilityStatus;
+  availabilitySource?: string;
+  availabilityVerificationStatus?: VerificationStatus;
+  availabilityLastVerifiedAt?: string;
+  verificationStatus: VerificationStatus;
   isDemoData: boolean;
+  isPublished?: boolean;
+  publishedAt?: string;
+  updatedAt?: string;
   specs?: Record<string, string>;
+  keySpecifications?: Record<string, string>;
   features?: string[];
   comparisons?: StorePriceComparison[];
   bestDealNote?: string;
@@ -66,7 +110,11 @@ export interface Deal {
   dealSource: string;
   lastVerifiedAt: string;
   status: DealStatus;
+  verificationStatus: VerificationStatus;
+  dealVerificationStatus?: VerificationStatus;
+  priceVerificationStatus?: VerificationStatus;
   isDemoData: boolean;
+  isPublished?: boolean;
   highlightBadge?: string;
 }
 
@@ -106,6 +154,7 @@ export interface Coupon {
   expiryDate: string;
   terms: string[];
   isVerified: boolean;
+  verificationStatus?: VerificationStatus;
   lastVerifiedAt: string;
   isDemoData: boolean;
 }

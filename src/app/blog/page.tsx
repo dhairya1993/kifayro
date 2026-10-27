@@ -8,14 +8,14 @@ import { BookOpen, ArrowRight, Clock } from 'lucide-react';
 import { AffiliateDisclosureNotice } from '@/components/ui/AffiliateDisclosureNotice';
 
 export const metadata: Metadata = {
-  title: 'Smart Shopping Guides & Consumer Advice | Kifayro',
+  title: 'Smart Shopping Guides & Consumer Advice',
   description:
     'Research-backed shopping and buying guides on comparing online prices, spotting inflated MRP discounts, evaluating smartphone and laptop specs, and shopping safely in India.',
   alternates: {
     canonical: '/blog',
   },
   openGraph: {
-    title: 'Smart Shopping Guides & Consumer Advice | Kifayro',
+    title: 'Smart Shopping Guides & Consumer Advice — Kifayro',
     description:
       'Research-backed shopping and buying guides on comparing online prices, spotting inflated MRP discounts, evaluating smartphone and laptop specs, and shopping safely in India.',
     url: 'https://kifayro.vercel.app/blog',

@@ -1,4 +1,4 @@
-import { Coupon } from '@/types';
+import type { Coupon } from '../types/index.ts';
 
 export const coupons: Coupon[] = [
   {
@@ -17,6 +17,7 @@ export const coupons: Coupon[] = [
       'Cannot be clubbed with store employee discount vouchers',
     ],
     isVerified: true,
+    verificationStatus: 'demo',
     lastVerifiedAt: '2026-10-23T12:00:00Z',
     isDemoData: true,
   },
@@ -36,6 +37,7 @@ export const coupons: Coupon[] = [
       'Subject to standard doorstep return inspection guidelines',
     ],
     isVerified: true,
+    verificationStatus: 'demo',
     lastVerifiedAt: '2026-10-23T14:30:00Z',
     isDemoData: true,
   },
@@ -55,6 +57,7 @@ export const coupons: Coupon[] = [
       'Not applicable on brand gift cards or combo clearance bins',
     ],
     isVerified: true,
+    verificationStatus: 'demo',
     lastVerifiedAt: '2026-10-23T15:10:00Z',
     isDemoData: true,
   },
@@ -74,6 +77,7 @@ export const coupons: Coupon[] = [
       'Subject to stock availability at fulfillment centers',
     ],
     isVerified: true,
+    verificationStatus: 'demo',
     lastVerifiedAt: '2026-10-23T16:00:00Z',
     isDemoData: true,
   },
@@ -92,7 +96,28 @@ export const coupons: Coupon[] = [
       'Valid on full-price and discounted items above ₹4,999 threshold',
     ],
     isVerified: true,
+    verificationStatus: 'demo',
     lastVerifiedAt: '2026-10-23T11:00:00Z',
+    isDemoData: true,
+  },
+  {
+    id: 'coup-amazon-electronics',
+    code: 'AMZTECH500',
+    title: '₹500 Off on Audio & Computing Accessories',
+    description: 'Clip the digital coupon voucher on select headphones, wireless mice, and computer peripherals on Amazon India.',
+    store: 'amazon-in',
+    category: 'electronics',
+    discount: '₹500 Voucher',
+    minOrder: 4999,
+    expiryDate: '2026-11-20T23:59:59Z',
+    terms: [
+      'Digital voucher must be clipped on the product detail page prior to checkout',
+      'Applicable on eligible electronics and computing accessories',
+      'Limited to one redemption per customer account during the promotional window',
+    ],
+    isVerified: true,
+    verificationStatus: 'demo',
+    lastVerifiedAt: '2026-10-23T17:00:00Z',
     isDemoData: true,
   },
 ];

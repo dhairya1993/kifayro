@@ -22,7 +22,7 @@ export function DemoBanner({
           Demonstration & Testing Mode ({itemType})
         </p>
         <p className="text-amber-800 leading-relaxed">
-          Kifayro is currently operating with clearly labeled sample data and historical benchmark prices while official Indian affiliate network approvals (Amazon Associates India & Flipkart) are undergoing publisher onboarding. Live affiliate destination links are safe, mapped previews.
+          Kifayro is currently operating with clearly labeled sample data and historical benchmark prices while official Indian publisher applications (including Amazon Associates Store ID <code className="bg-amber-100/80 px-1 py-0.5 rounded font-mono text-amber-900 font-semibold">kifayrodeals-21</code>) undergo review. Outbound links are direct merchant navigation previews without active affiliate tracking parameters.
         </p>
         <div className="pt-1 flex gap-3 font-medium">
           <Link

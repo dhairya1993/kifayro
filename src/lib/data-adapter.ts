@@ -6,6 +6,7 @@ import {
   Coupon,
   Article,
   AffiliateProvider,
+  VerificationStatus,
 } from '@/types';
 import { products } from '@/data/products';
 import { deals } from '@/data/deals';
@@ -22,6 +23,9 @@ export interface ProductFilterOptions {
   minPrice?: number;
   maxPrice?: number;
   inStockOnly?: boolean;
+  verificationStatus?: VerificationStatus;
+  priceVerificationStatus?: VerificationStatus;
+  excludeDemo?: boolean;
   sortBy?: 'relevance' | 'price-low' | 'price-high' | 'verified' | 'discount';
 }
 
@@ -29,6 +33,8 @@ export interface DealFilterOptions {
   category?: string;
   store?: string;
   status?: 'active' | 'expired' | 'all';
+  verificationStatus?: VerificationStatus;
+  excludeDemo?: boolean;
   minDiscount?: number;
   sortBy?: 'verified' | 'discount' | 'title';
 }
@@ -113,6 +119,15 @@ export class LocalDataSourceAdapter implements IDataSourceAdapter {
     if (options?.inStockOnly) {
       list = list.filter((p) => p.availabilityStatus === 'in_stock');
     }
+    if (options?.verificationStatus) {
+      list = list.filter((p) => p.verificationStatus === options.verificationStatus);
+    }
+    if (options?.priceVerificationStatus) {
+      list = list.filter((p) => p.priceVerificationStatus === options.priceVerificationStatus);
+    }
+    if (options?.excludeDemo) {
+      list = list.filter((p) => !p.isDemoData && p.verificationStatus !== 'demo');
+    }
 
     if (options?.sortBy) {
       switch (options.sortBy) {
@@ -156,8 +171,16 @@ export class LocalDataSourceAdapter implements IDataSourceAdapter {
     if (options?.status && options.status !== 'all') {
       list = list.filter((d) => d.status === options.status);
     } else if (!options?.status) {
-      // default: only active deals in standard listings
-      list = list.filter((d) => d.status === 'active');
+      // default: only active deals in standard listings (excluding expired statuses)
+      list = list.filter((d) => d.status === 'active' && d.verificationStatus !== 'expired');
+    }
+
+    if (options?.verificationStatus) {
+      list = list.filter((d) => d.verificationStatus === options.verificationStatus);
+    }
+
+    if (options?.excludeDemo) {
+      list = list.filter((d) => !d.isDemoData && d.verificationStatus !== 'demo');
     }
 
     if (options?.store) {

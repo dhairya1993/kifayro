@@ -8,14 +8,14 @@ import { AffiliateDisclosureNotice } from '@/components/ui/AffiliateDisclosureNo
 import { ShieldCheck, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Supported Indian Online Stores | Kifayro',
+  title: 'Supported Indian Online Stores',
   description:
     'Directory of supported Indian e-commerce merchants and affiliate networks: Amazon India, Flipkart, Croma, Reliance Digital, Myntra, Tata CLiQ, and Nykaa.',
   alternates: {
     canonical: '/stores',
   },
   openGraph: {
-    title: 'Supported Indian Online Stores | Kifayro',
+    title: 'Supported Indian Online Stores — Kifayro',
     description:
       'Directory of supported Indian e-commerce merchants and affiliate networks on Kifayro.',
     url: 'https://kifayro.vercel.app/stores',
@@ -30,8 +30,41 @@ export default async function StoresPage() {
     dataAdapter.getDeals({ status: 'active' }),
   ]);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        name: 'Supported Indian Retail Stores | Kifayro',
+        description: 'Directory of supported Indian e-commerce merchants and affiliate networks on Kifayro.',
+        url: 'https://kifayro.vercel.app/stores',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://kifayro.vercel.app',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Supported Stores',
+            item: 'https://kifayro.vercel.app/stores',
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: 'Supported Stores' }]} />
 
       <div className="space-y-2">

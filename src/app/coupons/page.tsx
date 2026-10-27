@@ -9,14 +9,14 @@ import { Ticket, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Indian Store Coupons & Promo Vouchers (Preview) | Kifayro',
+  title: 'Store Coupons & Promo Vouchers (Preview)',
   description:
     'Sample promo vouchers, discount codes, and qualification terms for Amazon India, Flipkart, Myntra, Croma, and Nykaa on Kifayro.',
   alternates: {
     canonical: '/coupons',
   },
   openGraph: {
-    title: 'Indian Store Coupons & Promo Vouchers (Preview) | Kifayro',
+    title: 'Store Coupons & Promo Vouchers (Preview) — Kifayro',
     description:
       'Sample promo vouchers, discount codes, and qualification terms for Amazon India, Flipkart, Myntra, Croma, and Nykaa on Kifayro.',
     url: 'https://kifayro.vercel.app/coupons',
@@ -30,8 +30,41 @@ export default async function CouponsPage() {
     dataAdapter.getStores(),
   ]);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        name: 'Indian Store Coupons & Promo Vouchers (Preview) | Kifayro',
+        description: 'Sample promo vouchers, discount codes, and qualification terms for Amazon India, Flipkart, Myntra, Croma, and Nykaa on Kifayro.',
+        url: 'https://kifayro.vercel.app/coupons',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://kifayro.vercel.app',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Coupons & Promo Codes',
+            item: 'https://kifayro.vercel.app/coupons',
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: 'Coupons & Promo Codes' }]} />
 
       <div className="space-y-2">

@@ -19,7 +19,7 @@ export async function generateMetadata({
 
   if (!article) {
     return {
-      title: 'Article Not Found | Kifayro',
+      title: 'Article Not Found',
       robots: {
         index: false,
         follow: false,
@@ -31,7 +31,7 @@ export async function generateMetadata({
   const canonicalUrl = `${siteUrl}/blog/${article.slug}`;
 
   return {
-    title: `${article.title} | Kifayro Shopping Guide`,
+    title: article.title,
     description: article.excerpt,
     alternates: {
       canonical: `/blog/${article.slug}`,
@@ -81,7 +81,7 @@ export default async function ArticleDetailPage({
   const relatedArticles = allArticles.filter((a) => a.id !== article.id).slice(0, 2);
 
   // Schema.org Article Structured Data
-  const jsonLdArticle = {
+  const jsonLdArticle: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     mainEntityOfPage: {
@@ -93,9 +93,9 @@ export default async function ArticleDetailPage({
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     author: {
-      '@type': 'Person',
+      '@type': 'Organization',
       name: article.author.name,
-      jobTitle: article.author.role,
+      url: 'https://kifayro.vercel.app',
     },
     publisher: {
       '@type': 'Organization',

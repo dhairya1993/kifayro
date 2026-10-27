@@ -11,7 +11,7 @@ export const affiliateProviders: AffiliateProvider[] = [
     disclosureRequirement:
       'Statutory disclosure upon program approval: As an Amazon Associate, Kifayro earns from qualifying purchases. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.',
     notes:
-      'Application and compliance infrastructure in preparation. Kifayro does not currently possess an approved Amazon Associate tracking ID or active PA-API credentials.',
+      "Kifayro has been issued the Amazon Associates tracking ID kifayrodeals-21. The application remains subject to Amazon's review and applicable program requirements. The assignment of a Store ID does not itself confirm final approval. Amazon links currently route without active affiliate tracking parameters, and PA-API credentials are not active.",
     supportsSubIds: false,
   },
   {

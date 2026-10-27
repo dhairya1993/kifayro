@@ -1,4 +1,4 @@
-import { Store } from '@/types';
+import type { Store } from '../types/index.ts';
 
 export const stores: Store[] = [
   {

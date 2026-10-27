@@ -4,11 +4,12 @@ import { dataAdapter } from '@/lib/data-adapter';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kifayro.vercel.app';
 
-  const [products, deals, categories, stores, articles] = await Promise.all([
+  const [products, deals, categories, stores, coupons, articles] = await Promise.all([
     dataAdapter.getProducts(),
     dataAdapter.getDeals({ status: 'active' }),
     dataAdapter.getCategories(),
     dataAdapter.getStores(),
+    dataAdapter.getCoupons(),
     dataAdapter.getArticles(),
   ]);
 
@@ -67,7 +68,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: catalogueStructureDate,
   }));
 
-  const storeRoutes: MetadataRoute.Sitemap = stores.map((s) => ({
+  // Exclude empty store hubs that currently catalogue no deals, coupons, or products
+  // to protect crawl budget and prevent Googlebot soft-404 / thin content flags.
+  const populatedStores = stores.filter((store) => {
+    const hasDeals = deals.some((d) => d.store === store.slug);
+    const hasProducts = products.some((p) => p.store === store.slug);
+    const hasCoupons = coupons.some((c) => c.store === store.slug);
+    return hasDeals || hasProducts || hasCoupons;
+  });
+
+  const storeRoutes: MetadataRoute.Sitemap = populatedStores.map((s) => ({
     url: `${siteUrl}/stores/${s.slug}`,
     lastModified: catalogueStructureDate,
   }));

@@ -4,14 +4,14 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ShieldCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Affiliate Transparency Policy & Program Readiness | Kifayro',
+  title: 'Affiliate Transparency Policy & Program Readiness',
   description:
     'Full transparency disclosure regarding Kifayro’s affiliate program readiness, merchant link policy, and commercial independence.',
   alternates: {
     canonical: '/affiliate-disclosure',
   },
   openGraph: {
-    title: 'Affiliate Transparency Policy & Program Readiness | Kifayro',
+    title: 'Affiliate Transparency Policy & Program Readiness — Kifayro',
     description:
       'Transparency disclosure regarding Kifayro’s affiliate program readiness and commercial independence.',
     url: 'https://kifayro.vercel.app/affiliate-disclosure',
@@ -20,8 +20,31 @@ export const metadata: Metadata = {
 };
 
 export default function AffiliateDisclosurePage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://kifayro.vercel.app',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Affiliate Disclosure',
+        item: 'https://kifayro.vercel.app/affiliate-disclosure',
+      },
+    ],
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: 'Affiliate Disclosure' }]} />
 
       <header className="space-y-4">
@@ -46,7 +69,7 @@ export default function AffiliateDisclosurePage() {
           <div className="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-950 font-medium text-xs leading-relaxed space-y-1">
             <p className="font-bold text-sm text-amber-900">Platform Preview & Affiliate Notice</p>
             <p>
-              Kifayro is currently operating in platform demonstration mode. Kifayro does <strong>not</strong> currently participate in Amazon Associates India, the Flipkart Affiliate Programme, or any commercial affiliate networks, and does <strong>not</strong> claim active partner status. External product and deal links currently route directly to standard merchant storefronts with zero affiliate tracking and zero referral commissions.
+              Kifayro is currently operating in platform demonstration mode. Kifayro does <strong>not</strong> claim final approval for the Amazon Associates Program, the Flipkart Affiliate Programme, or any commercial affiliate networks. When applicable in the future upon program approval and technical verification, Kifayro may earn commissions from eligible purchases through affiliate links at zero additional cost to shoppers. External product and deal links currently route directly to standard merchant storefronts with zero affiliate tracking parameters and zero referral commissions.
             </p>
           </div>
           <p>
@@ -64,10 +87,16 @@ export default function AffiliateDisclosurePage() {
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-slate-900">3. Specific Program Readiness Notices</h2>
           <div className="space-y-3">
-            <div className="p-4 bg-slate-50 rounded-xl space-y-1">
-              <h3 className="font-bold text-slate-900 text-xs">Amazon Associates India (Preparation in Progress)</h3>
+            <div className="p-4 bg-slate-50 rounded-xl space-y-2">
+              <h3 className="font-bold text-slate-900 text-xs">Amazon Associates India (Application Under Review)</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Kifayro is being structured to comply fully with the Amazon Associates Program Operating Agreement and Associates Program Policies. Kifayro does not currently possess an approved Amazon Associate tracking ID or active PA-API v5 credentials. All Amazon links are direct merchant navigation links. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.
+                Kifayro has been issued the Amazon Associates tracking ID <code className="bg-slate-100 px-1 py-0.5 rounded font-mono text-slate-700 font-semibold">kifayrodeals-21</code> for its publisher application. The application remains subject to Amazon&apos;s review and applicable program requirements. The assignment of a Store ID does not itself confirm final approval.
+              </p>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Amazon links on this website must not be described as affiliate-tracked unless their tracking parameters and functionality have been verified. In the current platform preview mode, all outbound Amazon links are standard direct merchant links without active affiliate tracking parameters, and PA-API v5 credentials are not active.
+              </p>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Statutory declaration required under the Amazon Associates Operating Agreement: <strong className="text-slate-800">&ldquo;As an Amazon Associate I earn from qualifying purchases.&rdquo;</strong> This statutory declaration governs all qualifying affiliate referrals upon program authorization and verified link deployment. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. Kifayro is not owned, operated, sponsored, or officially endorsed by Amazon.
               </p>
             </div>
 

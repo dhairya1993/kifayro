@@ -7,7 +7,7 @@ import { OutboundRedirectClient } from './OutboundRedirectClient';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Redirecting to Merchant Store | Kifayro',
+  title: 'Redirecting to Merchant Store',
   description: 'Safely redirecting to verified merchant destination with transparent outbound tracking disclosures.',
   robots: {
     index: false,

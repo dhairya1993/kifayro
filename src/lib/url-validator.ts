@@ -60,7 +60,30 @@ export function isAllowedDestinationUrl(rawUrl: unknown): boolean {
 
     // 4. Exact hostname matching against allowlist
     const hostname = parsed.hostname.toLowerCase();
-    return ALLOWED_DESTINATION_HOSTS.has(hostname);
+    if (!ALLOWED_DESTINATION_HOSTS.has(hostname)) {
+      return false;
+    }
+
+    // 5. Open redirect prevention: inspect nested destination trampoline parameters
+    const nestedParam =
+      parsed.searchParams.get('url') ||
+      parsed.searchParams.get('redirect') ||
+      parsed.searchParams.get('location') ||
+      parsed.searchParams.get('dest') ||
+      parsed.searchParams.get('target');
+
+    if (nestedParam) {
+      try {
+        const nestedUrl = new URL(nestedParam);
+        if (!ALLOWED_DESTINATION_HOSTS.has(nestedUrl.hostname.toLowerCase())) {
+          return false;
+        }
+      } catch {
+        // If it's a relative path on the same merchant site (e.g. /dp/123), that is safe
+      }
+    }
+
+    return true;
   } catch {
     return false;
   }
